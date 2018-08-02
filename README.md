@@ -1,0 +1,2 @@
+# SciPy2018
+SciPy2018 - FOSSEE
