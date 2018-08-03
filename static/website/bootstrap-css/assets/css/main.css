@@ -453,7 +453,7 @@ ul li {
 /* 
  * 6.7 Section: Schedule
  */
-.partner {
+.partner .organiser {
   background-color: #f8f8f8;
 }
 .partner .partner-box {
@@ -469,8 +469,24 @@ ul li {
   opacity: 1;
 }
 .partner .partner-box-1 {
-  background: url(../images/partner/partner-1.png) no-repeat center center/contain;
+  background: url(../images/partner/mhrd.png) no-repeat center center/contain;
 }
+.organiser .organiser-box {
+  display: block;
+  opacity: 0.3;
+  height: 150px;
+  width: 150px;
+  margin: 25px auto;
+  -webkit-transition: 0.5s all linear;
+          transition: 0.5s all linear;
+}
+.organiser .organiser-box:hover {
+  opacity: 1;
+}
+.organiser .organiser-box-1 {
+  background: url(../images/partner/fossee.png) no-repeat center center/contain;
+}
+/*
 .partner .partner-box-2 {
   background: url(../images/partner/partner-2.png) no-repeat center center/contain;
 }
@@ -492,7 +508,7 @@ ul li {
 .partner .partner-box-8 {
   background: url(../images/partner/partner-8.png) no-repeat center center/contain;
 }
-
+*/
 /* 
  * 6.8 Section: FAQ
  */
