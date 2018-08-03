@@ -9,6 +9,7 @@
     <title>SciPy India 2018</title>
 
     <!-- css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'website/bootstrap-css/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/bootstrap-css/bower_components/ionicons/css/ionicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/bootstrap-css/assets/css/main.css' %}">
@@ -86,14 +87,18 @@
 
                 <div class="col-sm-6">
 
-                    <h3 class="section-title multiple-title">What is Our Goal?</h3>
+                  <!--  <h3 class="section-title multiple-title">What is Our Goal?</h3>
 
                     <p class="text-justify">One of the goals of the conference is to combine education, engineering, and science with computing through the medium of Python and thereby extrapolate on how powerful Scientific Computing is in various fields and among different communities.</p>
 
                     <ul class="list-arrow-right">
 
                         <li>Have hands on sessions</li>
-                    </ul>
+                    </ul> -->
+                     <h3 class="section-title multiple-title" align="center"><u>News and Updates</u></h3>
+                    <a class="twitter-timeline" href="https://twitter.com/SciPyIndia" data-widget-id="404921110312910848" data-width="100%">Tweets by @SciPyIndia</a>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
                 </div><!-- /.col-sm-6 -->
             </div><!-- /.row -->
@@ -112,8 +117,8 @@
                 <div class="col-sm-3">
 
                     <i class="ion-ios-location"></i>
-                    <h3>LCH, IIT Bombay<br>Mumbai</h3>
-                
+                    <h3>LH101, Lecture Hall Complex, <br>IIT Bombay<br>Mumbai</h3>
+
                 </div>
                 <div class="col-sm-3">
 
@@ -124,8 +129,8 @@
                 <div class="col-sm-3">
                 
                     <i class="ion-speakerphone"></i>
-                    <h3>05<br>Speakers</h3>
-                
+                    <h3>Speakers on the way</h3>
+
                 </div>
             </div><!-- row -->
         </div><!-- container -->
@@ -208,73 +213,6 @@
         </div>
     </section>
 
-    <section id="registration" class="section registration">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="section-title">Contact</h3>
-                </div>
-            </div>
-                
-            <form action="#" id="registration-form">
-                <div class="row">
-                    <div class="col-md-12" id="registration-msg" style="display:none;">
-                        <div class="alert"></div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="First Name" id="fname" name="fname" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Last Name" id="lname" name="lname" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Phone" id="cell" name="cell" required>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Address" id="address" name="address" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Zip Code" id="zip" name="zip" required>
-                        </div>
-
-                        <div class="form-group">
-                            <select class="form-control" name="city" id="city" required>
-                                <option readonly>City</option>
-                                <option>City Name 1</option>
-                                <option>City Name 2</option>
-                                <option>City Name 3</option>
-                                <option>City Name 4</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <select class="form-control" name="program" id="program" required>
-                                <option readonly>Select Your Query Topic </option>
-                                <option>Speaker</option>
-                                <option>Praticipant</option>
-                                <option>Accomodation</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt20">
-                    <button type="submit" class="btn btn-black" id="registration-submit-btn">Submit</button>
-                </div>
-            </form>
-        </div>
-    </section>
-
     <section id="contribution" class="section bg-image-2 contribution">
         <div class="container">
             <div class="row">
@@ -298,9 +236,8 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <div align="justify" class="p-5">
-                     <p>We appreciate your participation in SciPy 2017. We want you to have an enjoyable and enriching experience in the conference. For this all the attendees are required to conform to the following Code of Conduct. Organisers will ensure that it is enforced throughout the event.
-                     <div class="collapse" id="collapseExample">
+                     <p class="text-justify">We appreciate your participation in SciPy 2018. We want you to have an enjoyable and enriching experience in the conference. For this all the attendees are required to conform to the following Code of Conduct. Organisers will ensure that it is enforced throughout the event.
+                     <div id="demo" class="collapse">
                         <div class="card-text">
                            <p>SciPy India is dedicated to providing a harassment-free conference experience for everyone, regardless of age, gender, sexual orientation, physical appearance, disability, race, religion or employment.
                            </p>
@@ -335,8 +272,14 @@
                            <p>SciPy India Conference Code of Conduct is licensed under a Creative Commons Attribution 3.0 Unported License.
                            </p>
                         </div>
+
                      </div>
-                </div>
+                     <center>
+                        <button type="button" class="btn btn-black" data-toggle="collapse" data-target="#demo">
+                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                        </button>
+                    </center>
             </div>
     </section>
 
@@ -370,7 +313,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <a href="https://fossee.in"class="organiser-box organiser-box-1" target="_blank"></a>
-                    <p>The Annual SciPy India conference is organised by the team members of FOSSEE project which is part of the National Mission on Education through ICT with the thrust area being Adaptation and deployment of open source simulation packages equivalent to proprietary software, funded by MHRD, based at the Indian Institute of Technology Bombay (IITB). </p>
+                    <p class="text-justify">The Annual SciPy India conference is organised by the team members of FOSSEE project which is part of the National Mission on Education through ICT with the thrust area being Adaptation and deployment of open source simulation packages equivalent to proprietary software, funded by MHRD, based at the Indian Institute of Technology Bombay (IITB). </p>
                 </div>
             </div>
     </section>
@@ -539,6 +482,73 @@
         </div>
     </section>
 
+
+    <section id="write-us" class="section write-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Write to Us</h3>
+                    <p><h5>Feel free to send us an email if you have any questions.</h5></p>
+                </div>
+            </div>
+
+            <form action="#" id="registration-form">
+                <div class="row">
+                    <div class="col-md-12" id="registration-msg" style="display:none;">
+                        <div class="alert"></div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="First Name" id="fname" name="fname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Last Name" id="lname" name="lname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="textarea" class="form-control" placeholder="Your Query" id="query" name="query" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt20">
+                    <button type="submit" class="btn btn-black" id="registration-submit-btn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section id="contact-us" class="section contact-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Contact us</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <dl class="alt">
+                            <dt>Phone</dt>
+                            <dd><i class="fa fa-phone" aria-hidden="true"></i> (+91) 22 25764133</dd>
+                            <dd><i class="fa fa-calendar" aria-hidden="true"></i> Monday - Friday</dd>
+                            <dd><i class="fa fa-clock-o" aria-hidden="true"></i> 10:00 AM - 6:00 PM</dd>
+                            <dt>Email</dt>
+                            <dd>
+                                <i class="fa fa-envelope" aria-hidden="true"></i> <a style="color:black;" href="mailto:scipy@fossee.in"> scipy[at]fossee[dot]in
+                                </a>
+                            </dd>
+                        </dl>
+                </div>
+            </div>
+    </section>
+
+
     <footer class="site-footer">
         <div class="container">
             <div class="row">
@@ -552,14 +562,15 @@
                 <div class="col-md-6">
                     <ul class="social-block">
                         Visit SciPy.in/
-                        <a style="color:blue;" target="_blank" href="http://scipy.in/2009">2009</a>/
-                        <a style="color:white;" target="_blank" href="http://scipy.in/scipyin/2010/">2010</a>/
-                        <a style="color:blue;" target="_blank" href="http://scipy.in/scipyin/2011/">2011</a>/
-                        <a style="color:white;" target="_blank" href="http://scipy.in/2012">2012</a>/
-                        <a style="color:blue;" target="_blank" href="http://scipy.in/2013">2013</a>/
-                        <a style="color:white;" target="_blank" href="http://scipy.in/2014">2014</a>/
-                        <a style="color:blue;" target="_blank" href="http://scipy.in/2015">2015</a>/
-                        <a style="color:white;" target="_blank" href="http://scipy.in/2016">2016</a>
+                        <a style="color:blue;" target="_blank" href="https://scipy.in/2009">2009</a>/
+                        <a style="color:white;" target="_blank" href="https://scipy.in/scipyin/2010/">2010</a>/
+                        <a style="color:blue;" target="_blank" href="https://scipy.in/scipyin/2011/">2011</a>/
+                        <a style="color:white;" target="_blank" href="https://scipy.in/2012">2012</a>/
+                        <a style="color:blue;" target="_blank" href="https://scipy.in/2013">2013</a>/
+                        <a style="color:white;" target="_blank" href="https://scipy.in/2014">2014</a>/
+                        <a style="color:blue;" target="_blank" href="https://scipy.in/2015">2015</a>/
+                        <a style="color:white;" target="_blank" href="https://scipy.in/2016">2016</a>/
+                        <a style="color:blue;" target="_blank" href="https://scipy.in/2017">2017</a>
                     </ul>
                 </div>
             </div>
