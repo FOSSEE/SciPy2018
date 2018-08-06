@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{% static 'website/bootstrap-css/bower_components/ionicons/css/ionicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/bootstrap-css/assets/css/main.css' %}">
     <link rel="stylesheet" href="{% static 'website/bootstrap-css/assets/css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'website/bootstrap-css/custom.css' %}">
 
 <script type="text/javascript">
 // Wait for window load
@@ -448,51 +449,138 @@ jQuery(document).ready(function($){
                     <h3 class="section-title">Memories of SciPy 2017</h3>
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-md-12">
-                    <ul class="grid">
-                        
-                        <li class="grid-item grid-item-sm-6">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-1.jpg' %}">
-                        </li>
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-1.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-1.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-2.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-2.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
 
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-3.jpg' %}">
-                        </li>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-3.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-3.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-4.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-4.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-5.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-5.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
 
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-9.jpg' %}">
-                        </li>
-                    
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-11.jpg' %}">
-                        </li>
 
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-6.jpg' %}">
-                        </li>
 
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-7.jpg' %}">
-                        </li>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-6.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-6.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-7.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-7.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-8.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-8.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-9.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-9.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-10.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-10.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-11.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-11.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                </div>
 
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-8.jpg' %}">
-                        </li>
 
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-2.jpg' %}">
-                        </li>
+                <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="image-gallery-title"></h4>
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img id="image-gallery-image" class="img-responsive col-md-12" src="">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fa fa-arrow-left"></i>
+                                </button>
 
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-10.jpg' %}">
-                        </li>
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="{% static 'website/bootstrap-css/assets/images/photos/photos-5.jpg' %}">
-                        </li>
-                    </ul>
+                                <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -619,6 +707,7 @@ jQuery(document).ready(function($){
     <script src="{% static 'website/bootstrap-css/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'website/bootstrap-css/bower_components/smooth-scroll/dist/js/smooth-scroll.min.js' %}"></script>
     <script src="{% static 'website/bootstrap-css/assets/js/main.js' %}"></script>
+    <script src="{% static 'website/js/custom.js' %}"></script>
 
 </body>
 </html>
