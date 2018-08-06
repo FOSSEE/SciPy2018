@@ -5,16 +5,35 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="SciPy India - International conference on Python for education and computing">
+    <meta name="description" content="SciPy India is a conference providing opportunities to spread the use of the Python programming language in the Scientific Computing community in India. It provides a unique opportunity to interact with the Who's who of the Python for Scientific Computing fraternity and learn, understand, participate, and contribute to Scientific Computing using Python. One of the goals of the conference is to combine education, engineering, and science with computing through the medium of Python.">
+    <meta name="keywords" content="SciPy, SciPyIndia 2018, Python,SciPy India 2018,SciPy India conference,Scientific Computing">
 
     <title>SciPy India 2018</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
 
     <!-- css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'website/bootstrap-css/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/bootstrap-css/bower_components/ionicons/css/ionicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/bootstrap-css/assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'website/bootstrap-css/assets/css/custom.css' %}">
+
+<script type="text/javascript">
+// Wait for window load
+jQuery(document).ready(function($){
+    $(window).load(function() {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut("slow");
+    });
+
+    });
+
+</script>
 </head>
 <body data-spy="scroll" data-target="#site-nav">
+<div class="se-pre-con"></div>
     <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
         <div class="container">
             <div class="navbar-header">
@@ -46,7 +65,7 @@
                     <li class="active"><a data-scroll href="#about">About</a></li>
                     <li><a data-scroll href="#speakers">Speakers</a></li>
                     <li><a data-scroll href="#schedule">Schedule</a></li>
-                    <li><a data-scroll href="#partner">Partner</a></li>
+                    <li><a data-scroll href="#sponsor">Sponsor</a></li>
                     <!-- <li><a data-scroll href="#">Sponsorship</a></li> -->
                     <li><a data-scroll href="#faq">FAQ</a></li>
                     <li><a data-scroll href="#photos">Photos</a></li>
@@ -319,16 +338,27 @@
     </section>
 
 
-    <section id="partner" class="section partner">
+    <section id="sponsor" class="section sponsor">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title">Partner</h3>
+                    <h3 class="section-title">Sponsor</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="http://mhrd.gov.in" class="partner-box partner-box-1" target="_blank"></a>
+                    <a href="http://mhrd.gov.in" class="sponsor-box sponsor-box-1" target="_blank"></a>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-sm-12">
+                    <p class="text-justify">
+                        Thank you for your interest to sponsor Scipy India 2018.</p>
+<p class="text-justify">
+    SciPy India, an annual conference organized by FOSSEE (Free and Open Source Software for Education) based at IIT Bombay, provides the opportunity to unfurl the use of the Python programming language in the Scientific Computing community in India. SciPy India being organized since 2009, attracts more than 250 students and faculty every year. This conference provides the participants with a unique opportunity to interact and connect with the Python community.
+</p><p class="text-justify">
+    Here’s a call to the interested organizations to sponsor this conference and get associated with the event. Through this sponsorship, you could engage with top professionals and enhance your organization’s brand visibility amongst Python users.
+                    </p>
                 </div>
             </div>
     </section>
@@ -589,5 +619,6 @@
     <script src="{% static 'website/bootstrap-css/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'website/bootstrap-css/bower_components/smooth-scroll/dist/js/smooth-scroll.min.js' %}"></script>
     <script src="{% static 'website/bootstrap-css/assets/js/main.js' %}"></script>
+
 </body>
 </html>
