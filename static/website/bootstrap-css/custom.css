@@ -12,3 +12,23 @@ if it's not present, don't show loader */
 	z-index: 9999;
 	background: url(images/loader-64x/Preloader_2.gif) center no-repeat #fff;
 }
+
+.btn:focus, .btn:active, button:focus, button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#image-gallery .modal-footer{
+  display: block;
+}
+
+.thumb{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.modal-header {
+    border-bottom: none; !important
+}
+.modal-footer {
+    border-top: none; !important
+}
