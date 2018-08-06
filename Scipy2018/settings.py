@@ -27,7 +27,7 @@ SECRET_KEY = '(-ch5+l^7w4zd3*f*qjg_pg#)=l3=g-&8+wfecl&a01a%kg)up'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = DEBUG_VAL
 
-ALLOWED_HOSTS = ['localhost', '192.168.0.101']
+ALLOWED_HOSTS = ALLOWED_HOSTS_VAL
 
 
 # Application definition
@@ -53,7 +53,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Scipy2018.urls'
-ROOT_URL = 'http://127.0.0.1:8000'
+ROOT_URL = ROOT_URL_VAL
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
