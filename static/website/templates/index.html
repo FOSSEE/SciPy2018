@@ -82,7 +82,7 @@ jQuery(document).ready(function($){
 
             <h2>21 &amp; 22 December, 2018 / IIT Bombay</h2>
             
-            <h1>SciPy India</h1>
+            <h1>SciPy India 2018</h1>
             
             <p>International conference on Python for education and computing</p>
             
@@ -324,6 +324,22 @@ jQuery(document).ready(function($){
             </div>
     </section>
 
+    <section id="location" class="section location">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h3 class="section-title">Venue</h3>
+                    <address>
+                        <p>LH101, 1st Floor,<br> Lecture Hall Complex, IIT Bombay<br> Phone: +1234567890<br> Email: scipy[at]fossee[dot]in </p>
+                    </address>
+                </div>
+                <div class="col-sm-9">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.472585331343!2d72.916895!3d19.130779999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7f4215f57bf%3A0xcf0c03ea45a113e1!2sLecture+Hall+Complex+(LHC)!5e0!3m2!1sen!2sin!4v1434726932900" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <section id="organiser" class="section organiser">
         <div class="container">
             <div class="row">
@@ -423,7 +439,7 @@ jQuery(document).ready(function($){
                             </div>
 
                             <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                <div class="panel-body">Descent formal wear</div>
+                                <div class="panel-body">Decent formal wear</div>
                             </div>
                         </div>
 
@@ -435,7 +451,7 @@ jQuery(document).ready(function($){
                             </div>
 
                             <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                                <div class="panel-body">Drop your query through email</div>
+                                <div class="panel-body">Drop your query through email to info[at]fossee[dot]in</div>
                             </div>
                         </div>
                     </div>
@@ -452,13 +468,22 @@ jQuery(document).ready(function($){
             </div>
 
             <div class="row">
-                <div class="row">
+                <div class="row memories">
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-1.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
                                  src="{% static 'website/bootstrap-css/assets/images/photos/photos-1.jpg' %}"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-4.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-4.jpg' %}"
                                  alt="Scipy 2017">
                         </a>
                     </div>
@@ -481,15 +506,7 @@ jQuery(document).ready(function($){
                                  alt="Scipy 2017">
                         </a>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-4.jpg' %}"
-                           data-target="#image-gallery">
-                            <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-4.jpg' %}"
-                                 alt="Scipy 2017">
-                        </a>
-                    </div>
+                    
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-5.jpg' %}"
@@ -585,30 +602,13 @@ jQuery(document).ready(function($){
         </div>
     </section>
 
-    <section id="location" class="section location">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <h3 class="section-title">Venue</h3>
-                    <address>
-                        <p>LH101, 1st Floor,<br> Lecture Hall Complex, IIT Bombay<br> Phone: +1234567890<br> Email: scipy[at]fossee[dot]in </p>
-                    </address>
-                </div>
-                <div class="col-sm-9">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.472585331343!2d72.916895!3d19.130779999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7f4215f57bf%3A0xcf0c03ea45a113e1!2sLecture+Hall+Complex+(LHC)!5e0!3m2!1sen!2sin!4v1434726932900" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
     <section id="team" class="section team">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="text-uppercase mt0 font-400">Our Team</h3>
-                    <div class="row">
-                    </div>
+                    <!-- <div class="row">
+                    </div> -->
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="card">
@@ -630,7 +630,7 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mrs. Usha Viswanathan <br>
+                                    <p>Usha Viswanathan <br>
                                     </p>
                                 </div>
 
@@ -643,7 +643,7 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mrs. Vineeta Ghavri <br>
+                                    <p>Vineeta Ghavri <br>
                                     </p>
                                 </div>
                             </div>
@@ -655,7 +655,19 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mr. Ankit J <br>
+                                    <p>Sunil Shetye <br>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+                                <div class="avatar">
+                                    <img src="" alt="" />
+                                </div>
+                                <div class="content">
+                                    <p>Ankit R. Javalkar <br>
                                     </p>
                                 </div>
 
@@ -668,7 +680,7 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mr. Prathamesh S <br>
+                                    <p>Prathamesh S <br>
                                     </p>
                                 </div>
 
@@ -681,7 +693,7 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mr. Mahesh G <br>
+                                    <p>Mahesh G <br>
                                     </p>
                                 </div>
 
@@ -694,7 +706,7 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mr. Binson B <br>
+                                    <p>Binson B <br>
                                     </p>
                                 </div>
 
@@ -707,7 +719,7 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mr. Akshen D <br>
+                                    <p>Akshen D <br>
                                     </p>
                                 </div>
 
@@ -720,7 +732,7 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mr. Yash V <br>
+                                    <p>Yash V <br>
                                     </p>
                                 </div>
                             </div>
@@ -732,7 +744,7 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mr. Rohan M <br>
+                                    <p>Rohan M <br>
                                     </p>
                                 </div>
 
@@ -745,7 +757,7 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Ms. Priya H <br>
+                                    <p>Prashant S <br>
                                     </p>
                                 </div>
 
@@ -758,7 +770,20 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Ms. Komal S <br>
+                                    <p>Sashi Rekha B M K <br>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+                                <div class="avatar">
+                                    <img src="" alt="" />
+                                </div>
+                                <div class="content">
+                                    <p>Komal S <br>
                                     </p>
                                 </div>
                             </div>
@@ -770,17 +795,28 @@ jQuery(document).ready(function($){
                                     <img src="" alt="" />
                                 </div>
                                 <div class="content">
-                                    <p>Mr. Vishal B <br>
+                                    <p>Priya H <br>
                                     </p>
                                 </div>
-
                             </div>
                         </div>
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+                                <div class="avatar">
+                                    <img src="" alt="" />
+                                </div>
+                                <div class="content">
+                                    <p>Vishal B <br>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-
+                    </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <section id="write-us" class="section write-us">
@@ -932,6 +968,9 @@ jQuery(document).ready(function($){
         </div>
     </footer>
 
+<img class="src-image"  src="{% static 'website/bootstrap-css/assets/images/speakers/dummy.png' %}"/>
+<img class="src-image"  src="{% static 'website/bootstrap-css/assets/images/speakers/dummy.png' %}"/>
+<img class="src-image"  src="{% static 'website/bootstrap-css/assets/images/speakers/dummy.png' %}"/>
 <img class="src-image"  src="{% static 'website/bootstrap-css/assets/images/speakers/dummy.png' %}"/>
 <img class="src-image"  src="{% static 'website/bootstrap-css/assets/images/speakers/dummy.png' %}"/>
 <img class="src-image"  src="{% static 'website/bootstrap-css/assets/images/speakers/dummy.png' %}"/>

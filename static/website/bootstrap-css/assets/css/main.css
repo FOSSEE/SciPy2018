@@ -147,6 +147,10 @@ ul li {
   text-align: center;
 }
 
+.memories{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+  }
 /* 
  * 3.0 Helper Class
  */
@@ -307,7 +311,6 @@ ul li {
   font-weight: 700;
   margin-right: 5px;
   letter-spacing: 3px;
-  text-transform: uppercase;
 }
 .site-branding .logo:focus, .site-branding .logo:hover {
   text-decoration: none;
@@ -338,7 +341,6 @@ ul li {
   color: #fff;
   position: relative;
   text-align: center;
-  text-transform: uppercase;
   width: 100%;
   z-index: 1;
   padding: 0 15px;
