@@ -10,3 +10,10 @@ def index(request):
     context = {}
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
+
+def login(request):
+    context = {}
+    context['navbar_style'] = 'none'
+    template = loader.get_template('login.html')
+    return HttpResponse(template.render(context, request))
+
