@@ -299,6 +299,12 @@ ul li {
   -webkit-transition: all 0.2s linear 0s;
           transition: all 0.2s linear 0s;
 }
+.navbar-solid-other {
+  background-color: #000 !important;
+  padding: 0 !important;
+  -webkit-transition: all 0.2s linear 0s;
+          transition: all 0.2s linear 0s;
+}
 
 .site-branding {
   float: left;

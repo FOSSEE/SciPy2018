@@ -12,13 +12,20 @@ $(window).load(function(){
 
 function handleTopNavAnimation() {
 	var top=$(window).scrollTop();
-
+    if($('#home').attr("data") == 'home'){
 	if(top>10){
+
 		$('#site-nav').addClass('navbar-solid'); 
 	}
 	else{
 		$('#site-nav').removeClass('navbar-solid'); 
 	}
+	}
+	else{
+    $('#site-nav').addClass('navbar-solid-other');
+     $("a").removeAttr("data-scroll");
+	}
+
 }
 
 /*
