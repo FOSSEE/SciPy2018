@@ -30,15 +30,20 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <!-- navigation menu -->
-                    <li class="active"><a data-scroll href="#about">About</a></li>
+                    <li class="active"><a data-scroll href="{{SITE_URL}}/#about">About</a></li>
                     <li><a data-scroll href="{{SITE_URL}}/#speakers">Speakers</a></li>
                     <li><a data-scroll href="{{SITE_URL}}/#schedule">Schedule</a></li>
                     <li><a data-scroll href="{{SITE_URL}}/#sponsor">Sponsor</a></li>
                     <li><a data-scroll href="{{SITE_URL}}/#faq">FAQ</a></li>
                     <li><a data-scroll href="{{SITE_URL}}/#photos">Photos</a></li>
                     <li><a data-scroll href="{{SITE_URL}}/#team">Team</a></li>
-                    <li><a data-scroll href="#">Login</a></li>
-                
+                    {% if user.is_authenticated %}
+                      <li><a href="{% url 'login' %}"><i class="fa fa-user" aria-hidden="true"></i>
+                        {{ user.username }}!</a></li>
+                    <li><a href="{% url 'logout' %}">logout</a></li>
+                        {% else %}
+                    <li><a href="{% url 'login' %}">login</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div><!-- /.container -->

@@ -130,3 +130,5 @@ STATICFILES_DIRS = [
     '/../static/',
 ]
 
+LOGIN_REDIRECT_URL = '/proposal'
+LOGOUT_REDIRECT_URL = '/accounts/login'
