@@ -26,6 +26,7 @@ class Proposal(models.Model):
     status = models.CharField(max_length = 100, default='Pending', editable=True)
     proposal_type = models.CharField(max_length = 100)
     tags = models.CharField(max_length = 250)
+    open_to_share = models.CharField(max_length = 2, default=1)
 
 class Ratings(models.Model):
     proposal = models.ForeignKey(Proposal,on_delete=models.CASCADE,)
