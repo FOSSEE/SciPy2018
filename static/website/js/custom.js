@@ -65,6 +65,18 @@ $(document)
           updateGallery($(this));
         });
     }
+    
+    var fewSeconds = 5;
+    $('#subbtn').click(function(){
+    // Ajax request
+    alert("I have read all the instructions carefully");
+    var btn = $(this);
+    /*btn.prop('disabled', true);
+    setTimeout(function(){
+        btn.prop('disabled', false);
+    }, fewSeconds*1000);*/
+});
+    
   });
 
 // build key actions
@@ -90,4 +102,5 @@ $(document)
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
   });
+
 

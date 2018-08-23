@@ -38,13 +38,14 @@
                     <li><a data-scroll href="{{SITE_URL}}/#photos">Photos</a></li>
                     <li><a data-scroll href="{{SITE_URL}}/#team">Team</a></li>
                     {% if user.is_authenticated %}
-                      <li><a href="{% url 'login' %}"><i class="fa fa-user" aria-hidden="true"></i>
+                      <li><a href=""><i class="fa fa-user" aria-hidden="true"></i>
                         {{ user.username }}!</a></li>
-                    <li><a href="{% url 'logout' %}">logout</a></li>
+                    <li><a href="{% url 'auth:logout' %}?next=/">logout</a></li>
                         {% else %}
-                    <li><a href="{% url 'login' %}">login</a></li>
+                    <li><a href="{% url 'auth:login' %}">login</a></li>
                     {% endif %}
                 </ul>
+
             </div>
         </div><!-- /.container -->
     </nav>

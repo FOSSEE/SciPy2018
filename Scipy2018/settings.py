@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'website',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URL = ROOT_URL_VAL
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [PROJECT_DIR + '/static/website/templates',],
+        'DIRS': [PROJECT_DIR + '/static/website/templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,7 +81,8 @@ WSGI_APPLICATION = 'Scipy2018.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': DB_NAME_DEFAULT,                      # Or path to database file if using sqlite3.
+        # Or path to database file if using sqlite3.
+        'NAME': DB_NAME_DEFAULT,
         'USER': DB_USER_DEFAULT,
         'PASSWORD': DB_PASS_DEFAULT,
         'HOST': DB_HOST_DEFAULT,

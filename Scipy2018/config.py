@@ -29,8 +29,8 @@ EMAIL_HOST_USER_SERVER = ''
 EMAIL_HOST_PASSWORD_SERVER = ''
 EMAIL_USE_TLS_SERVER = False
 #########################################
-ALLOWED_HOSTS = 'allowed host value'
+ALLOWED_HOSTS_VAL = 'allowed host value'
 DEBUG_VAL = True
 SITE = 'SITE'
-ROOT_URL = 'root url value' #http://127.0.0.1:8000
+ROOT_URL_VAL = 'root url value' #http://127.0.0.1:8000
 #########################################
