@@ -53,13 +53,15 @@
         </ul>
         <br/> {% if user.is_superuser %}
         <center>
-            <a href="{{ SITE_URL }}/proposal/view" class="btn btn-info">View Proposals</a>
-            <a href="{{ SITE_URL }}/proposal/submitcfp" class="btn btn-info">Submit Proposal</a>
-            <a href="" class="btn btn-info">Submit Workshop</a>
+            <a href="{% url 'website:view_abstracts' %}" class="btn btn-info">View Proposals</a>
+            <a href="{% url 'website:submit-cfp' %}" class="btn btn-info">Submit Proposal</a>
+            <a href="{% url 'website:submit-cfw' %}"  class="btn btn-info">Submit Workshop</a>
         </center>
         {% else %}
         <center>
-            <a href="{{ SITE_URL }}/proposal/view" class="btn btn-info">View Proposals</a>
+            <a href="{% url 'website:view_abstracts' %}" class="btn btn-info">View Proposals</a>
+            <a href="{% url 'website:submit-cfp' %}" class="btn btn-info">Submit Proposal</a>
+            <a href="{% url 'website:submit-cfw' %}"  class="btn btn-info">Submit Workshop</a>
         </center>
         {% endif %} {% else %}
 
@@ -80,9 +82,9 @@
                     {{ form.as_p }}
                     <button class="button special" name="login" type="submit">Login</button>
                     <br/><br/>
-                    <a style="padding-right : 20px;" href="{% url 'userregister' %}" class="btn btn btn-primary">Create an Account
+                    <a style="padding-right : 20px;" href="{% url 'website:userregister' %}" class="btn btn btn-primary">Create an Account
                   </a><br>
-                    <a href="/2017/forgotpassword/">Forgot Password?</a> {% csrf_token %}
+                    <a href="/2018/forgotpassword/">Forgot Password?</a> {% csrf_token %}
                 </form>
                 <!-- </div> -->
                 <p>Or Sign in with:&nbsp;<br>
@@ -143,6 +145,6 @@
 
     </div>
     {% endif %}
-
+<div class="row" style="margin-top: 4vh;"></div>
 </section>
 {% endblock %}
