@@ -17,7 +17,7 @@ from social.apps.django_app.default.models import UserSocialAuth
 from django.contrib.auth import authenticate, login, logout
 
 from django.core.mail import EmailMultiAlternatives
-
+import os
 from Scipy2018.config import *
 
 
@@ -56,7 +56,6 @@ def proposal(request):
             return HttpResponse(template.render(context, request))
     else:
         form = UserLoginForm()
-        print (form, "-----")
         context = {'request': request,
                     'user': request.user,
                     'form': form,
@@ -163,7 +162,6 @@ def cfp(request):
             return render_to_response('cfp.html', context)
     else:
         form = UserLoginForm()
-        print (form, "-----")
         context = {'request': request,
                     'user': request.user,
                     'form': form,
@@ -341,7 +339,6 @@ def abstract_details(request, proposal_id=None):
         elif user is not None:
             try:
                 proposal = Proposal.objects.get(id=proposal_id)
-                print ("------------------> owner",proposal.user)
                 if proposal.user == user:
                     try:
                         url = '/2018'+str(proposal.attachment.url) 
@@ -388,7 +385,7 @@ def rate_proposal(request, proposal_id = None):
             context['comments'] = comments
             context['proposal'] = proposal
             context['rates'] = rates
-            context.update(csrf(request))
+            #context.update(csrf(request))
             return render(request, 'comment-abstract.html', context)
         else:
             rates = Ratings.objects.filter(proposal=proposal)
@@ -396,7 +393,7 @@ def rate_proposal(request, proposal_id = None):
             context['comments'] = comments
             context['proposal'] = proposal
             context['rates'] = rates
-            context.update(csrf(request))
+            #context.update(csrf(request))
             return render(request, 'comment-abstract.html', context)
     else:
         return render(request, 'comment-abstract.html', context)
@@ -408,7 +405,7 @@ def comment_abstract(request, proposal_id = None):
     user = request.user
     context = {}
     if user.is_authenticated:
-        if user.is_superuser :
+        if user.is_superuser:
             try:
                 proposal = Proposal.objects.get(id=proposal_id)
                 try:
@@ -467,8 +464,9 @@ def comment_abstract(request, proposal_id = None):
                     context['comments'] = comments
                     path, filename = os.path.split(str(proposal.attachment))
                     context['filename'] = filename
-                    context.update(csrf(request))
-                    return render(request, 'comment-abstract.html', context)
+                    #context.update(csrf(request))
+                    template = loader.get_template('comment-abstract.html')
+                    return HttpResponse(template.render(context, request))
                 else:
                     comments = Comments.objects.filter(proposal=proposal)
                     rates = Ratings.objects.filter(proposal=proposal)
@@ -477,14 +475,18 @@ def comment_abstract(request, proposal_id = None):
                     context['comments'] = comments
                     path, filename = os.path.split(str(proposal.attachment))
                     context['filename'] = filename
-                    context.update(csrf(request))
-                    return render(request, 'comment-abstract.html', context)
+                    #context.update(csrf(request))
+                    template = loader.get_template('comment-abstract.html')
+                    return HttpResponse(template.render(context, request))
             except:
-                return render(request, 'cfp.html', context)
+                template = loader.get_template('cfp.html')
+                return HttpResponse(template.render(context, request))
         else:
-            return render(request, 'cfp.html', context)
+            template = loader.get_template('cfp.html')
+            return HttpResponse(template.render(context, request))
     else:
-        return render(request, 'cfp.html', context)
+        template = loader.get_template('cfp.html')
+        return HttpResponse(template.render(context, request))
 
 
 @login_required
@@ -515,7 +517,7 @@ def status(request, proposal_id= None):
                     We strongly suggest that you try to plan your workshops carefully and focus on doing things hands-on and not do excessive amounts of theory.  Try to give your participants a decent overview so they can pick up additional details on their own. It helps to pick one or two overarching problems you plan to solve and work your way through the solution of those. 
                     Installation is often a problem, so please make sure your instructions are simple and easy to follow.  If you wish, we could allow some time the previous day for installation help.  Let us know about this.  Also, do not waste too much time on installation during your workshop.
                     \n\nYou will be notified regarding instructions of your talk via email.\n\nThank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay"""
-                send_mail(subject, message, sender_email, to)
+                #send_mail(subject, message, sender_email, to)
                 #context.update(csrf(request))
             elif 'reject' in request.POST:
                 proposal.status="Rejected"
@@ -552,7 +554,7 @@ def status(request, proposal_id= None):
                         #We look forward to seeing you at the conference and to your continued interest and participation.
                     #\n\nRegards,\n\nSciPy India Program chairs"""
 
-                send_mail(subject, message, sender_email, to)
+                #send_mail(subject, message, sender_email, to)
                 #context.update(csrf(request))  
             elif 'resubmit' in request.POST:
                 to = (proposal.user.email, TO_EMAIL )
@@ -705,7 +707,7 @@ The tentative schedule will be put up on the website shortly. Please confirm you
 
 We strongly suggest that you try to plan your workshops carefully and focus on doing things hands-on and not do excessive amounts of theory. Try to give your participants a decent overview so they can pick up additional details on their own. It helps to pick one or two overarching problems you plan to solve and work your way through the solution of those. 
 \n\nThank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay"""
-                    send_mail(subject, message, sender_email, to)
+                    #send_mail(subject, message, sender_email, to)
                     #context.update(csrf(request))
                 proposals = Proposal.objects.all()
                 context['proposals'] = proposals
@@ -747,7 +749,7 @@ We strongly suggest that you try to plan your workshops carefully and focus on d
 
                     #We look forward to seeing you at the conference and to your continued interest and participation.
                     #\n\nRegards,\n\nSciPy India Program chairs"""
-                    send_mail(subject, message, sender_email, to)
+                    #send_mail(subject, message, sender_email, to)
                     #context.update(csrf(request))  
                 proposals = Proposal.objects.all()
                 context['proposals'] = proposals
@@ -817,6 +819,52 @@ Thank You ! <br><br>Regards,<br>SciPy India 2018,<br>FOSSEE - IIT Bombay.
     else:
         template = loader.get_template('view-proposals.html')
         return HttpResponse(template.render(context, request))
+
+
+@login_required
+def edit_proposal(request, proposal_id = None):
+    user = request.user
+    context = {}
+    if user.is_authenticated:
+        try:
+            proposal = Proposal.objects.get(id=proposal_id)
+            if proposal.status == 'Edit':
+                if proposal.proposal_type == 'ABSTRACT':
+                    form = ProposalForm( instance=proposal)
+                else:
+                    form = WorkshopForm( instance=proposal)
+            else:
+                return render(request,'cfp.html')
+            if request.method == 'POST':
+                if proposal.status == 'Edit':
+                    if proposal.proposal_type == 'ABSTRACT':
+                        form = ProposalForm( request.POST, request.FILES, instance=proposal)
+                    else:
+                        form = WorkshopForm( request.POST, request.FILES, instance=proposal)
+                else:
+                    return render(request, 'cfp.html')
+                if form.is_valid():
+                    data = form.save(commit = False)
+                    data.user = user
+                    proposal.status = 'Resubmitted'
+                    data.save()
+                    context.update(csrf(request))
+                    proposals = Proposal.objects.filter(user = user).order_by('status')
+                    context['proposals'] = proposals
+                    return render(request, 'view-abstracts.html', context)
+                else:
+                    context['user'] = user
+                    context['form'] = form
+                    context['proposal'] = proposal
+                    return render(request, 'edit-proposal.html', context)
+            context['user'] = user
+            context['form'] = form
+            context['proposal'] = proposal
+        except:
+            template = loader.get_template('cfp.html')
+            return HttpResponse(template.render(context, request))
+    template = loader.get_template('edit-proposal.html')
+    return HttpResponse(template.render(context, request))
 
 @csrf_exempt 
 def contact_us(request,next_url):
