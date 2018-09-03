@@ -7,8 +7,23 @@ from django.contrib.auth.models import User
 from django.core.validators import MinLengthValidator, MinValueValidator, \
     RegexValidator, URLValidator
 from captcha.fields import ReCaptchaField
+from string import punctuation, digits
+try:
+    from string import letters
+except ImportError:
+    from string import ascii_letters as letters
 
 from website.models import Proposal
+from website.send_mails import generate_activation_key
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from django.utils import timezone
+from website.models import (
+    Profile, User
+)
+
+UNAME_CHARS = letters + "._" + digits
+PWD_CHARS = letters + punctuation + digits
 
 MY_CHOICES = (
     ('Beginner', 'Beginner'),
@@ -45,6 +60,64 @@ rating = (
 
 CHOICES = [('1', 'Yes'),
            ('0', 'No')]
+
+position_choices = (
+    ("student", "Student"),
+    ("faculty", "Faculty"),
+    ("industry_people", "Industry People"),
+)
+
+source = (
+    ("FOSSEE website", "FOSSEE website"),
+    ("Google", "Google"),
+    ("Social Media", "Social Media"),
+    ("From other College", "From other College"),
+)
+
+title = (
+    ("Mr", "Mr."),
+    ("Miss", "Ms."),
+    ("Professor", "Prof."),
+    ("Doctor", "Dr."),
+)
+states = (
+    ("IN-AP",    "Andhra Pradesh"),
+    ("IN-AR",    "Arunachal Pradesh"),
+    ("IN-AS",    "Assam"),
+    ("IN-BR",    "Bihar"),
+    ("IN-CT",    "Chhattisgarh"),
+    ("IN-GA",    "Goa"),
+    ("IN-GJ",    "Gujarat"),
+    ("IN-HR",    "Haryana"),
+    ("IN-HP",    "Himachal Pradesh"),
+    ("IN-JK",    "Jammu and Kashmir"),
+    ("IN-JH",    "Jharkhand"),
+    ("IN-KA",    "Karnataka"),
+    ("IN-KL",    "Kerala"),
+    ("IN-MP",    "Madhya Pradesh"),
+    ("IN-MH",    "Maharashtra"),
+    ("IN-MN",    "Manipur"),
+    ("IN-ML",    "Meghalaya"),
+    ("IN-MZ",    "Mizoram"),
+    ("IN-NL",    "Nagaland"),
+    ("IN-OR",    "Odisha"),
+    ("IN-PB",    "Punjab"),
+    ("IN-RJ",    "Rajasthan"),
+    ("IN-SK",    "Sikkim"),
+    ("IN-TN",    "Tamil Nadu"),
+    ("IN-TG",    "Telangana"),
+    ("IN-TR",    "Tripura"),
+    ("IN-UT",    "Uttarakhand"),
+    ("IN-UP",    "Uttar Pradesh"),
+    ("IN-WB",    "West Bengal"),
+    ("IN-AN",    "Andaman and Nicobar Islands"),
+    ("IN-CH",    "Chandigarh"),
+    ("IN-DN",    "Dadra and Nagar Haveli"),
+    ("IN-DD",    "Daman and Diu"),
+    ("IN-DL",    "Delhi"),
+    ("IN-LD",    "Lakshadweep"),
+    ("IN-PY",    "Puducherry")
+)
 
 
 # modal proposal form for cfp
@@ -213,3 +286,94 @@ class UserLoginForm(forms.Form):
             attrs={'class': 'form-inline', 'placeholder': 'Password'}),
         label='Password'
     )
+
+
+class UserRegistrationForm(forms.Form):
+    """A Class to create new form for User's Registration.
+    It has the various fields and functions required to register
+    a new user to the system"""
+    required_css_class = 'required'
+    errorlist_css_class = 'errorlist'
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter user name'}), max_length=32, help_text='''Letters, digits,
+                               period and underscore only.''',)
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs={'placeholder': 'Enter valid email id'}))
+    password = forms.CharField(max_length=32, widget=forms.PasswordInput())
+    confirm_password = forms.CharField(max_length=32, widget=forms.TextInput())
+    title = forms.ChoiceField(choices=title)
+    first_name = forms.CharField(max_length=32, label='First name', widget=forms.TextInput(
+        attrs={'placeholder': 'Enter first name'}))
+    last_name = forms.CharField(max_length=32, label='Last name', widget=forms.TextInput(
+        attrs={'placeholder': 'Enter last name'},))
+    phone_number = forms.RegexField(regex=r'^.{10}$',
+                                    error_messages={'invalid': "Phone number must be entered \
+                                                  in the format: '9999999999'.\
+                                                 Up to 10 digits allowed."}, label='Phone/Mobile', widget=forms.TextInput(attrs={'placeholder': 'Enter valid contact number'},))
+    institute = forms.CharField(max_length=128,
+                                help_text='Please write full name of your Institute/Organization/Company', label='Institute/Organization/Company', widget=forms.TextInput(attrs={'placeholder': 'Enter name of your Institute/Organization/Company', 'size': '50'},))
+    # department = forms.ChoiceField(help_text='Department you work/study',
+    #             choices=department_choices)
+    #location = forms.CharField(max_length=255, help_text="Place/City")
+    #state = forms.ChoiceField(choices=states)
+    how_did_you_hear_about_us = forms.ChoiceField(
+        choices=source, label='How did you hear about us?')
+
+    def clean_username(self):
+        u_name = self.cleaned_data["username"]
+        if u_name.strip(UNAME_CHARS):
+            msg = "Only letters, digits, period  are"\
+                  " allowed in username"
+            raise forms.ValidationError(msg)
+        try:
+            User.objects.get(username__exact=u_name)
+            raise forms.ValidationError("Username already exists.")
+        except User.DoesNotExist:
+            return u_name
+
+    def clean_password(self):
+        pwd = self.cleaned_data['password']
+        if pwd.strip(PWD_CHARS):
+            raise forms.ValidationError("Only letters, digits and punctuation\
+                                        are allowed in password")
+        return pwd
+
+    def clean_confirm_password(self):
+        c_pwd = self.cleaned_data['confirm_password']
+        pwd = self.data['password']
+        if c_pwd != pwd:
+            raise forms.ValidationError("Passwords do not match")
+
+        return c_pwd
+
+    def clean_email(self):
+        user_email = self.cleaned_data['email']
+        if User.objects.filter(email=user_email).exists():
+            raise forms.ValidationError("This email already exists")
+        return user_email
+
+    def save(self):
+        u_name = self.cleaned_data["username"]
+        u_name = u_name.lower()
+        pwd = self.cleaned_data["password"]
+        email = self.cleaned_data["email"]
+        new_user = User.objects.create_user(u_name, email, pwd)
+        new_user.first_name = self.cleaned_data["first_name"]
+        new_user.last_name = self.cleaned_data["last_name"]
+        new_user.save()
+
+        cleaned_data = self.cleaned_data
+        new_profile = Profile(user=new_user)
+        new_profile.institute = cleaned_data["institute"]
+        #new_profile.department = cleaned_data["department"]
+        #new_profile.position = cleaned_data["position"]
+        new_profile.phone_number = cleaned_data["phone_number"]
+        #new_profile.location = cleaned_data["location"]
+        new_profile.title = cleaned_data["title"]
+        #new_profile.state = cleaned_data["state"]
+        new_profile.how_did_you_hear_about_us = cleaned_data["how_did_you_hear_about_us"]
+        new_profile.activation_key = generate_activation_key(new_user.username)
+        new_profile.key_expiry_time = timezone.now() + \
+            timezone.timedelta(days=1)
+        new_profile.save()
+        key = Profile.objects.get(user=new_user).activation_key
+        return u_name, pwd, key

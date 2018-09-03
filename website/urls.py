@@ -6,6 +6,7 @@ app_name = 'website'
 urlpatterns = [
     #path('', views.index, name='index'),
     re_path(r'^$', views.index, name='index'),
+    re_path(r'^view_profile/$', views.view_profile, name='view_profile'),
     #path('proposal', views.proposal, name='proposal'),
     #path('login', views.login, name='login'),
     #path('accounts/', include('django.contrib.auth.urls')),
@@ -20,7 +21,7 @@ urlpatterns = [
     re_path(r'^submit-cfw/$', views.submitcfw, name='submitcfw'),
     #url(r'^submit-cfp/$', 'website.views.cfp', name='home'),
     #url(r'^submit-cfw/$', 'website.views.home', name='home'),
-    re_path(r'^accounts/register/$', views.userregister, name='userregister'),
+    re_path(r'^accounts/register/$', views.user_register, name='user_register'),
     re_path(r'^accounts/login/$', views.cfp, name='cfp'),
     re_path(r'^gallery/$', views.gallery, name='gallery'),
     # url(r'^view-abstracts/$', 'website.views.view_abstracts', name='view_abstracts'),
