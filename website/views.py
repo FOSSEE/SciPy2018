@@ -6,12 +6,16 @@ from django.shortcuts import render_to_response, render
 from django.template import loader
 from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.cache import cache_page
+from django.views.decorators.csrf import (csrf_exempt, csrf_protect,
+                                          ensure_csrf_cookie,
+                                          requires_csrf_token)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from website.models import Proposal, Comments, Ratings
 
-from website.forms import ProposalForm, UserRegisterForm, UserLoginForm, WorkshopForm  # ,ContactForm
+from website.forms import (ProposalForm, UserRegisterForm, UserRegistrationForm,
+                           UserLoginForm, WorkshopForm)  # ,ContactForm
 from website.models import Proposal, Comments, Ratings
 from social.apps.django_app.default.models import UserSocialAuth
 from django.contrib.auth import authenticate, login, logout
@@ -19,6 +23,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import EmailMultiAlternatives
 import os
 from Scipy2018.config import *
+from website.send_mails import send_email
+
+
+def is_email_checked(user):
+    if hasattr(user, 'profile'):
+        return True if user.profile.is_email_verified else False
+    else:
+        return False
+
+
+def is_superuser(user):
+    return True if user.is_superuser else False
 
 
 def index(request):
@@ -145,7 +161,7 @@ def view_abstracts(request):
         return render(request, 'cfp.html', context)
 
 
-@csrf_protect
+@requires_csrf_token
 def cfp(request):
     if request.method == "POST":
         context = {}
@@ -160,12 +176,13 @@ def cfp(request):
             proposals = Proposal.objects.filter(user=request.user).count()
             context['user'] = user
             context['proposals'] = proposals
-            return render_to_response('cfp.html', context)
+            template = loader.get_template('cfp.html')
+            return HttpResponse(template.render(context, request))
         else:
             context['invalid'] = True
             context['form'] = UserLoginForm
             context['user'] = user
-            return render_to_response('cfp.html', context)
+            return render(request, 'cfp.html', context)
     else:
         form = UserLoginForm()
         context = {'request': request,
@@ -909,3 +926,57 @@ def contact_us(request, next_url):
     #         context['mailfailed'] = True
     #         context['user'] = user
     # return redirect(next_url,context)
+
+
+@csrf_protect
+def user_register(request):
+    '''User Registration form'''
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            username, password, key = form.save()
+            new_user = authenticate(username=username, password=password)
+            login(request, new_user)
+            user_position = request.user.profile.position
+            send_email(
+                request, call_on='Registration',
+                user_position=user_position,
+                key=key
+            )
+
+            return render(request, 'activation.html')
+        else:
+            if request.user.is_authenticated:
+                return redirect('/view_profile/')
+            return render(
+                request, "user-register.html",
+                {"form": form}
+            )
+    else:
+        if request.user.is_authenticated and is_email_checked(request.user):
+            return redirect('/my_workshops/')
+        elif request.user.is_authenticated:
+            return render(request, 'activation.html')
+        form = UserRegistrationForm()
+    return render(request, "user-register.html", {"form": form})
+
+
+@csrf_protect
+@login_required
+def view_profile(request):
+    """ view instructor and coordinator profile """
+    user = request.user
+    if is_superuser(user):
+        return redirect('/admin')
+    if is_email_checked(user) and user.is_authenticated:
+        return render(request, "view_profile.html")
+    else:
+        if user.is_authenticated:
+            return render(request, 'activation.html')
+        else:
+            try:
+                logout(request)
+                return redirect('/login/')
+            except:
+                return redirect('/register/')
