@@ -5,6 +5,7 @@ from social.apps.django_app.default.models import UserSocialAuth
 from Scipy2018 import settings
 from django.core.validators import RegexValidator
 import os
+from datetime import datetime
 
 position_choices = (
     ("student", "Student"),
@@ -12,7 +13,14 @@ position_choices = (
     ("industry_people", "Industry People"),
 )
 
+gender = (
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('Other', 'Other'),
+)
+
 source = (
+    ("Poster", "Poster"),
     ("FOSSEE website", "FOSSEE website"),
     ("Google", "Google"),
     ("Social Media", "Social Media"),
@@ -24,6 +32,34 @@ title = (
     ("Miss", "Ms."),
     ("Professor", "Prof."),
     ("Doctor", "Dr."),
+)
+
+attending_job_fair = (
+    ("Yes", 1),
+    ("No", 0),
+)
+
+req_accomodation = (
+    ("Yes", 1),
+    ("No", 0),
+)
+
+t_shirt_size = (
+    ("M", "M"),
+    ("L", "L"),
+    ("XL", "XL"),
+    ("XXL", "XXL"),
+)
+
+attendeetype = (
+    ("Student", "student"),
+    ("Faculty", "faculty"),
+    ("Industry", "indusrty"),
+
+)
+
+reg_purpose = (
+    ("scipy-2018", 1),
 )
 
 
@@ -97,3 +133,56 @@ class Profile(models.Model):
             self.user.last_name,
             self.user.email
         )
+
+# payment details
+
+
+class PaymentDetails(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default='null')
+    # "regular/late registration"
+    first_name = models.CharField(max_length=50, default="null")
+    last_name = models.CharField(max_length=50, default="null")
+    gender = models.CharField(max_length=32, blank=True, choices=gender)
+    email = models.CharField(max_length=100, default="null")
+    phone_number = models.CharField(max_length=10, default="0000000000")
+    full_address = models.CharField(max_length=500, null=True)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=20)
+    pincode = models.CharField(max_length=6)
+    institute = models.CharField(max_length=150, default="null")
+    attendee_type = models.CharField(
+        max_length=32, blank=True, choices=attendeetype)  # "student,faculty,indusrty"
+    jobfair = models.CharField(
+        max_length=32, blank=True, choices=attending_job_fair)  # "yes/no"
+    tshirt = models.CharField(
+        max_length=32, blank=True, choices=t_shirt_size)  # "size"
+    gstin = models.CharField(max_length=15, null=True)
+    ticket_type = models.CharField(max_length=32, blank=True, choices=title)
+    # accomodation = models.CharField(
+    # max_length=32, blank=True, choices=req_accomodation)  # yes/no
+    amount = models.CharField(max_length=20, default=0)
+    # "nccps-2018 registration
+    #purpose = models.CharField(max_length=32, blank=True, choices=reg_purpose, default = "null")
+    #status = models.PositiveIntegerField()
+    confirm = models.CharField(max_length=1, null=False, default=0)
+    #description = models.CharField(max_length=20, null=True)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+
+
+class PaymentTransactionDetails(models.Model):
+    paymentdetail = models.ForeignKey(
+        PaymentDetails, blank=False, null=False, on_delete=models.PROTECT)
+    requestType = models.CharField(max_length=2)
+    userId = models.ForeignKey(
+        User, blank=False, null=False, on_delete=models.PROTECT)
+    amount = models.CharField(max_length=20)
+    reqId = models.CharField(max_length=50)
+    transId = models.CharField(max_length=100)
+    refNo = models.CharField(max_length=50)
+    provId = models.CharField(max_length=50)
+    status = models.CharField(max_length=2)
+    msg = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)

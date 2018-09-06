@@ -13,7 +13,7 @@ try:
 except ImportError:
     from string import ascii_letters as letters
 
-from website.models import Proposal
+from website.models import Proposal, PaymentDetails
 from website.send_mails import generate_activation_key
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -40,6 +40,19 @@ abs_duration = (
     ('30', '30'),
 )
 
+t_shirt_size = (
+    ("", "Select size"),
+    ("M", "M"),
+    ("L", "L"),
+    ("XL", "XL"),
+    ("XXL", "XXL"),
+)
+
+gender = (
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('Other', 'Other'),
+)
 
 MY_CHOICES = (
     ('Beginner', 'Beginner'),
@@ -61,13 +74,27 @@ rating = (
 CHOICES = [('1', 'Yes'),
            ('0', 'No')]
 
-position_choices = (
-    ("student", "Student"),
-    ("faculty", "Faculty"),
-    ("industry_people", "Industry People"),
+
+attending_job_fair = (
+    (0, "No"),
+    (1, "Yes"),
+)
+
+attendee_type_choices = (
+    ("student", "Student (Rs 750)"),
+    ("faculty", "Faculty (Rs 1,000)"),
+    ("industry_people", "Industry People (Rs 2,000)"),
+)
+
+ticket_type = (
+
+    ("regular", "Regular registration"),
+    ("late", "Late registration")
+
 )
 
 source = (
+    ("Poster", "Poster"),
     ("FOSSEE website", "FOSSEE website"),
     ("Google", "Google"),
     ("Social Media", "Social Media"),
@@ -81,42 +108,43 @@ title = (
     ("Doctor", "Dr."),
 )
 states = (
-    ("IN-AP",    "Andhra Pradesh"),
-    ("IN-AR",    "Arunachal Pradesh"),
-    ("IN-AS",    "Assam"),
+    ("",    "Select your State"),
+    ("Andhra Pradesh",    "Andhra Pradesh"),
+    ("Arunachal Pradesh",    "Arunachal Pradesh"),
+    ("Assam",    "Assam"),
     ("IN-BR",    "Bihar"),
-    ("IN-CT",    "Chhattisgarh"),
-    ("IN-GA",    "Goa"),
+    ("Bihar",    "Chhattisgarh"),
+    ("Goa",    "Goa"),
     ("IN-GJ",    "Gujarat"),
-    ("IN-HR",    "Haryana"),
-    ("IN-HP",    "Himachal Pradesh"),
-    ("IN-JK",    "Jammu and Kashmir"),
-    ("IN-JH",    "Jharkhand"),
-    ("IN-KA",    "Karnataka"),
-    ("IN-KL",    "Kerala"),
-    ("IN-MP",    "Madhya Pradesh"),
-    ("IN-MH",    "Maharashtra"),
-    ("IN-MN",    "Manipur"),
-    ("IN-ML",    "Meghalaya"),
-    ("IN-MZ",    "Mizoram"),
-    ("IN-NL",    "Nagaland"),
-    ("IN-OR",    "Odisha"),
-    ("IN-PB",    "Punjab"),
-    ("IN-RJ",    "Rajasthan"),
-    ("IN-SK",    "Sikkim"),
-    ("IN-TN",    "Tamil Nadu"),
-    ("IN-TG",    "Telangana"),
-    ("IN-TR",    "Tripura"),
-    ("IN-UT",    "Uttarakhand"),
-    ("IN-UP",    "Uttar Pradesh"),
-    ("IN-WB",    "West Bengal"),
-    ("IN-AN",    "Andaman and Nicobar Islands"),
-    ("IN-CH",    "Chandigarh"),
-    ("IN-DN",    "Dadra and Nagar Haveli"),
-    ("IN-DD",    "Daman and Diu"),
-    ("IN-DL",    "Delhi"),
-    ("IN-LD",    "Lakshadweep"),
-    ("IN-PY",    "Puducherry")
+    ("Gujarat",    "Haryana"),
+    ("Himachal Prades",    "Himachal Pradesh"),
+    ("Jammu and Kashmir",    "Jammu and Kashmir"),
+    ("Jharkhand",    "Jharkhand"),
+    ("Karnataka",    "Karnataka"),
+    ("Kerala",    "Kerala"),
+    ("Madhya Pradesh",    "Madhya Pradesh"),
+    ("Maharashtra",    "Maharashtra"),
+    ("Manipur",    "Manipur"),
+    ("MeghalayaL",    "Meghalaya"),
+    ("Mizoram",    "Mizoram"),
+    ("Nagaland",    "Nagaland"),
+    ("Odisha",    "Odisha"),
+    ("Punjab",    "Punjab"),
+    ("Rajasthan",    "Rajasthan"),
+    ("Sikkim",    "Sikkim"),
+    ("Tamil Nadu",    "Tamil Nadu"),
+    ("Telangana",    "Telangana"),
+    ("Tripura",    "Tripura"),
+    ("Uttarakhand",    "Uttarakhand"),
+    ("Uttar Pradesh",    "Uttar Pradesh"),
+    ("West Bengal",    "West Bengal"),
+    ("Andaman and Nicobar Islands",    "Andaman and Nicobar Islands"),
+    ("Chandigarh",    "Chandigarh"),
+    ("Dadra and Nagar Haveli",    "Dadra and Nagar Haveli"),
+    ("Daman and Diu",    "Daman and Diu"),
+    ("Delhi",    "Delhi"),
+    ("Lakshadweep",    "Lakshadweep"),
+    ("Puducherry",    "Puducherry")
 )
 
 
@@ -299,7 +327,8 @@ class UserRegistrationForm(forms.Form):
     email = forms.EmailField(widget=forms.TextInput(
         attrs={'placeholder': 'Enter valid email id'}))
     password = forms.CharField(max_length=32, widget=forms.PasswordInput())
-    confirm_password = forms.CharField(max_length=32, widget=forms.TextInput())
+    confirm_password = forms.CharField(
+        max_length=32, widget=forms.PasswordInput())
     title = forms.ChoiceField(choices=title)
     first_name = forms.CharField(max_length=32, label='First name', widget=forms.TextInput(
         attrs={'placeholder': 'Enter first name'}))
@@ -377,3 +406,80 @@ class UserRegistrationForm(forms.Form):
         new_profile.save()
         key = Profile.objects.get(user=new_user).activation_key
         return u_name, pwd, key
+
+
+class PaymentDetailsForm(forms.Form):
+    """A Class to create new form for User's ticket booking.
+    It has the various fields and functions required to ticket booking system"""
+    first_name = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'First Name',
+               'size': '50', 'Readonly': True}),
+        label='First Name')
+
+    last_name = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Last Name',
+               'size': '50', 'Readonly': True}),
+        label='Last Name')
+
+    gender = forms.ChoiceField(choices=gender)
+
+    email = forms.EmailField(max_length=100, widget=forms.TextInput(
+        attrs={'size': '50',
+                       'placeholder': 'Enter valid email id', 'Readonly': True}))
+
+    phone_number = forms.RegexField(regex=r'^.{10}$',
+                                    error_messages={
+                                        'invalid': "Phone number must be entered \
+                    in the format: '9999999999'.\
+                    Up to 10 digits allowed."},
+                                    label='Phone/Mobile',
+                                    widget=forms.TextInput(
+                                        attrs={'placeholder': 'Enter valid contact number',
+                                               }))
+
+    institute = forms.CharField(max_length=128,
+                                help_text='Please write full name of your Institute/ \
+                Organization/ Company', label='Institute/Organization/Company',
+                                widget=forms.TextInput(attrs={'placeholder': 'Enter name of '
+                                                              'your Institute/Organization/Company', 'size': '50'}))
+
+    city = forms.CharField(max_length=100,
+                           help_text='Please enter your city', label='City',
+                           widget=forms.TextInput(attrs={'placeholder': 'Enter  your City',
+                                                         'size': '50'}))
+
+    state = forms.ChoiceField(choices=states)
+
+    pincode = forms.CharField(max_length=6,
+                              help_text='Please enter your pincode',
+                              label='Pincode', widget=forms.TextInput(
+                                  attrs={'placeholder': 'Pincode', 'size': '6'}))
+
+    gstin = forms.CharField(max_length=15, required=False,
+                            help_text='Please enter your GSTIN',
+                            label='GSTIN',
+                            widget=forms.TextInput(
+                                attrs={'placeholder': 'GSTIN (Optional)', 'size': '15'}))
+
+    full_address = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'cols': 50,
+                                     'placeholder': 'Enter your full address'}),
+        required=True,
+        error_messages={
+            'required': 'Address is required.'},
+    )
+
+    job_fair = forms.ChoiceField(choices=attending_job_fair)
+
+    tshirt = forms.ChoiceField(choices=t_shirt_size, required=False)
+
+    attendee_type = forms.ChoiceField(widget=forms.RadioSelect,
+                                      choices=attendee_type_choices, required=True)
+
+    ticket_type = forms.ChoiceField(choices=ticket_type, widget=forms.Select(
+        attrs={'Readonly': True}), required=True)
+
+    amount = forms.CharField(max_length=15, required=False,
+                             label='Price',
+                             widget=forms.TextInput(
+                                 attrs={'Readonly': 'True', 'size': '15'}))

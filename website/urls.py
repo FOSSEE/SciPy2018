@@ -40,4 +40,5 @@ urlpatterns = [
             views.rate_proposal, name='rate_proposal'),
     re_path(r'^process-contact-form/(?P<next_url>\d+)',
             views.contact_us, name='contact_us'),
+    re_path(r'^event-ticket/$', views.ticket_booking, name='ticket_booking'),
 ]

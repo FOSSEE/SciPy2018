@@ -15,8 +15,8 @@ from django.contrib.auth.models import User
 from website.models import Proposal, Comments, Ratings
 
 from website.forms import (ProposalForm, UserRegisterForm, UserRegistrationForm,
-                           UserLoginForm, WorkshopForm)  # ,ContactForm
-from website.models import Proposal, Comments, Ratings
+                           UserLoginForm, WorkshopForm, PaymentDetailsForm)  # ,ContactForm
+from website.models import Proposal, Comments, Ratings, PaymentDetails
 from social.apps.django_app.default.models import UserSocialAuth
 from django.contrib.auth import authenticate, login, logout
 
@@ -960,6 +960,7 @@ def user_register(request):
             return render(request, 'activation.html')
         form = UserRegistrationForm()
     return render(request, "user-register.html", {"form": form})
+# required for ticket booking
 
 
 @csrf_protect
@@ -980,3 +981,112 @@ def view_profile(request):
                 return redirect('/login/')
             except:
                 return redirect('/register/')
+
+
+@login_required
+def ticket_booking(request):
+    '''User Ticket Booking form'''
+    user = request.user
+    context = {}
+    is_register = PaymentDetails.objects.get(user_id=request.user.id)
+    if request.user.id != is_register.user_id:
+        if request.method == "POST":
+            if user.is_authenticated:
+                is_register = PaymentDetails.objects.get(
+                    user_id=request.user.id)
+                if request.user.id != is_register.user_id:
+                    forms = PaymentDetailsForm(request.POST)
+                    print(forms)
+                    pass
+                    if forms.is_valid():
+                        user_id = request.user.id
+                        first_name = forms.cleaned_data['first_name']
+                        last_name = forms.cleaned_data['last_name']
+                        gender = forms.cleaned_data['gender']
+                        email = forms.cleaned_data['email']
+                        phone_number = forms.cleaned_data['phone_number']
+                        full_address = forms.cleaned_data['full_address']
+                        city = forms.cleaned_data['city']
+                        state = forms.cleaned_data['state']
+                        pincode = forms.cleaned_data['pincode']
+                        institute = forms.cleaned_data['institute']
+                        gstin = forms.cleaned_data['gstin']
+                        job_fair = forms.cleaned_data['job_fair']
+                        tshirt = forms.cleaned_data['tshirt']
+                        attendee_type = forms.cleaned_data['attendee_type']
+                        if attendee_type == 'student':
+                            amount = 1000
+                        elif attendee_type == 'faculty':
+                            amount = 1500
+                        elif attendee_type == 'industry_people':
+                            amount = 2000
+                        p = PaymentDetails(
+                            user_id=user_id,
+                            first_name=first_name,
+                            last_name=last_name,
+                            gender=gender,
+                            email=email,
+                            phone_number=phone_number,
+                            full_address=full_address,
+                            city=city,
+                            state=state,
+                            pincode=pincode,
+                            institute=institute,
+                            gstin=gstin,
+                            jobfair=job_fair,
+                            tshirt=tshirt,
+                            attendee_type=attendee_type,
+                            amount=amount,
+                            confirm=0
+                        )
+                        p.save()
+                    else:
+                        print("error")
+                    #template = loader.get_template('confirm-booking.html')
+                        return render(
+                            request, "confirm-booking.html", {"form": forms})
+                    template = loader.get_template('confirm-booking.html')
+                    return HttpResponse(template.render(context, request))
+                else:
+                    print("ok here")
+                    template = loader.get_template('confirm-booking.html')
+                    return HttpResponse(template.render(context, request))
+        else:
+            if user.is_authenticated:
+                is_register = PaymentDetails.objects.filter(
+                    user_id=request.user.id)
+                if request.user.id != is_register:
+                    fname = request.user.first_name
+                    lname = request.user.last_name
+                    user_id = request.user.id
+                    user_email = request.user.email
+                    form = PaymentDetailsForm(request.POST or None, initial={
+                        'first_name': fname, 'last_name': lname, 'email': user_email})
+                else:
+                    print(is_register.user_id)
+                    return render(
+                        request, "event-ticket.html", {"form": form})
+    else:
+        context = {
+            'event_details': 1,
+            'ticket_type': is_register.ticket_type,
+            'attendee_type': is_register.attendee_type,
+            'first_name': is_register.first_name,
+            'last_name': is_register.last_name,
+            'gender': is_register.gender,
+            'email': is_register.email,
+            'phone_number': is_register.phone_number,
+            'full_address': is_register.full_address,
+            'city': is_register.city,
+            'state': is_register.state,
+            'pincode': is_register.pincode,
+            'institute': is_register.institute,
+            'gstin': is_register.gstin,
+            'job_fair': is_register.jobfair,
+            'tshirt': is_register.tshirt,
+        }
+
+        template = loader.get_template('confirm-booking.html')
+        return HttpResponse(template.render(context, request))
+    return render(
+        request, "event-ticket.html", {"form": form})
