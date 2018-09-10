@@ -79,17 +79,19 @@ $(document)
 
   var value = $('input[name=attendee_type]:checked').val().split('-');
   $("#id_ticket_price").val(value[1]);
+  $("#id_total_amount").val(value[1]);
   $('input[type=radio]').change(function() {
    var value = $('input[name=attendee_type]:checked').val().split('-');
    $("#id_ticket_price").val(value[1]);
+   $("#id_total_amount").val(value[1]);
   });
 
 
   $(".tshirt-size").hide();
   $(".tshirt-price").hide();
 
-  $('#id_want_tshirt').change(function() {
-   if ($('#id_want_tshirt').val() == 'Yes') {
+  $('#id_req_tshirt').change(function() {
+   if ($('#id_req_tshirt').val() == 'Yes') {
     $(".tshirt-size").show();
     $(".tshirt-price").hide();
     $("#id_tshirt_price").val(350);
@@ -99,7 +101,6 @@ $(document)
     $(".tshirt-price").val();
    }
   });
-
 
   $(".tshirt-size").change(function() {
    if ($("#id_tshirt option:selected").val() == "None") {
@@ -119,7 +120,7 @@ $(document)
    return $(this).val() == $("#tshirt_price").val();
   }).attr('selected', true);
 
-  $("#want_tshirt").on("change", function() {
+  $("#req_tshirt").on("change", function() {
 
    $("#tshirt_price").val($(this).find("option:selected").attr("value"));
   });

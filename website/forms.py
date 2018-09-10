@@ -41,7 +41,7 @@ abs_duration = (
 )
 
 t_shirt_size = (
-    ("", "Select size"),
+    ("None", "Select size"),
     ("M", "M"),
     ("L", "L"),
     ("XL", "XL"),
@@ -71,25 +71,34 @@ rating = (
     ('10', '10'),
 )
 
-CHOICES = [('1', 'Yes'),
-           ('0', 'No')]
+CHOICES = [('Yes', 'Yes'),
+           ('No', 'No')]
 
+accomodation_choice = (
+    ('Yes', 'Yes'),
+    ('No', 'No')
+)
 
 attending_job_fair = (
-    (0, "No"),
-    (1, "Yes"),
+    ("No", "No"),
+    ("Yes", "Yes"),
+)
+
+want_tshirt = (
+    ("No", "No"),
+    ("Yes", "Yes"),
 )
 
 attendee_type_choices = (
-    ("student", "Student (Rs 750)"),
-    ("faculty", "Faculty (Rs 1,000)"),
-    ("industry_people", "Industry People (Rs 2,000)"),
+    ("Student-750", "Student (Rs 750)"),
+    ("Faculty-1000", "Faculty (Rs 1,000)"),
+    ("Industry participant-2000", "Industry participant (Rs 2,000)"),
 )
 
 ticket_type = (
 
-    ("regular", "Regular registration"),
-    ("late", "Late registration")
+    ("Regular registration", "Regular registration"),
+    ("Late registration", "Late registration")
 
 )
 
@@ -112,11 +121,11 @@ states = (
     ("Andhra Pradesh",    "Andhra Pradesh"),
     ("Arunachal Pradesh",    "Arunachal Pradesh"),
     ("Assam",    "Assam"),
-    ("IN-BR",    "Bihar"),
-    ("Bihar",    "Chhattisgarh"),
+    ("Bihar",    "Bihar"),
+    ("Chhattisgarh",    "Chhattisgarh"),
     ("Goa",    "Goa"),
-    ("IN-GJ",    "Gujarat"),
-    ("Gujarat",    "Haryana"),
+    ("Gujarat",    "Gujarat"),
+    ("Haryana",    "Haryana"),
     ("Himachal Prades",    "Himachal Pradesh"),
     ("Jammu and Kashmir",    "Jammu and Kashmir"),
     ("Jharkhand",    "Jharkhand"),
@@ -125,7 +134,7 @@ states = (
     ("Madhya Pradesh",    "Madhya Pradesh"),
     ("Maharashtra",    "Maharashtra"),
     ("Manipur",    "Manipur"),
-    ("MeghalayaL",    "Meghalaya"),
+    ("Meghalaya",    "Meghalaya"),
     ("Mizoram",    "Mizoram"),
     ("Nagaland",    "Nagaland"),
     ("Odisha",    "Odisha"),
@@ -411,6 +420,15 @@ class UserRegistrationForm(forms.Form):
 class PaymentDetailsForm(forms.Form):
     """A Class to create new form for User's ticket booking.
     It has the various fields and functions required to ticket booking system"""
+    ticket_type = forms.CharField(widget=forms.TextInput(
+        attrs={'size': '50', 'Readonly': True}),
+        label='Registration Type')
+    attendee_type = forms.ChoiceField(widget=forms.RadioSelect(),
+                                      choices=attendee_type_choices, required=True)
+    ticket_price = forms.CharField(widget=forms.TextInput(
+        attrs={'size': '5', 'Readonly': True}),
+        label='Ticket price')
+
     first_name = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': 'First Name',
                'size': '50', 'Readonly': True}),
@@ -421,11 +439,12 @@ class PaymentDetailsForm(forms.Form):
                'size': '50', 'Readonly': True}),
         label='Last Name')
 
-    gender = forms.ChoiceField(choices=gender)
+
 
     email = forms.EmailField(max_length=100, widget=forms.TextInput(
         attrs={'size': '50',
                        'placeholder': 'Enter valid email id', 'Readonly': True}))
+    gender = forms.ChoiceField(choices=gender)
 
     phone_number = forms.RegexField(regex=r'^.{10}$',
                                     error_messages={
@@ -437,11 +456,14 @@ class PaymentDetailsForm(forms.Form):
                                         attrs={'placeholder': 'Enter valid contact number',
                                                }))
 
-    institute = forms.CharField(max_length=128,
-                                help_text='Please write full name of your Institute/ \
-                Organization/ Company', label='Institute/Organization/Company',
-                                widget=forms.TextInput(attrs={'placeholder': 'Enter name of '
-                                                              'your Institute/Organization/Company', 'size': '50'}))
+
+    full_address = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'cols': 50,
+                                     'placeholder': 'Enter your full address'}),
+        required=True,
+        error_messages={
+            'required': 'Address is required.'},
+    )
 
     city = forms.CharField(max_length=100,
                            help_text='Please enter your city', label='City',
@@ -455,31 +477,31 @@ class PaymentDetailsForm(forms.Form):
                               label='Pincode', widget=forms.TextInput(
                                   attrs={'placeholder': 'Pincode', 'size': '6'}))
 
+
+    institute = forms.CharField(max_length=128,
+                                help_text='Please write full name of your Institute/ \
+                Organization/ Company', label='Institute/Organization/Company',
+                                widget=forms.TextInput(attrs={'placeholder': 'Enter name of '
+                                                              'your Institute/Organization/Company', 'size': '50'}))
+
+
     gstin = forms.CharField(max_length=15, required=False,
                             help_text='Please enter your GSTIN',
                             label='GSTIN',
                             widget=forms.TextInput(
                                 attrs={'placeholder': 'GSTIN (Optional)', 'size': '15'}))
 
-    full_address = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 4, 'cols': 50,
-                                     'placeholder': 'Enter your full address'}),
-        required=True,
-        error_messages={
-            'required': 'Address is required.'},
-    )
 
     job_fair = forms.ChoiceField(choices=attending_job_fair)
+    req_tshirt = forms.ChoiceField(choices=want_tshirt)
+    tshirt_size = forms.ChoiceField(choices=t_shirt_size, required=False)
+    tshirt_price = forms.CharField(widget=forms.TextInput(
+        attrs={'size': '5', 'Readonly': True}),
+        label='Tshirt price')
 
-    tshirt = forms.ChoiceField(choices=t_shirt_size, required=False)
+    accomodation = forms.ChoiceField(choices=accomodation_choice, required=True)
 
-    attendee_type = forms.ChoiceField(widget=forms.RadioSelect,
-                                      choices=attendee_type_choices, required=True)
-
-    ticket_type = forms.ChoiceField(choices=ticket_type, widget=forms.Select(
-        attrs={'Readonly': True}), required=True)
-
-    amount = forms.CharField(max_length=15, required=False,
+    total_amount = forms.CharField(max_length=15, required=False,
                              label='Price',
                              widget=forms.TextInput(
                                  attrs={'Readonly': 'True', 'size': '15'}))

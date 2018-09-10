@@ -41,4 +41,5 @@ urlpatterns = [
     re_path(r'^process-contact-form/(?P<next_url>\d+)',
             views.contact_us, name='contact_us'),
     re_path(r'^event-ticket/$', views.ticket_booking, name='ticket_booking'),
+    re_path(r'^event-ticket/confirm/$', views.ticket_booking_confirm, name='ticket_booking_confirm'),
 ]
