@@ -93,7 +93,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="speaker">
 
                         <figure>
@@ -112,30 +112,30 @@
                         </ul>
 
                     </div><!-- /.speaker -->
-                </div><!-- /.col-md-4 -->
+                <!--</div> --><!-- /.col-md-4 -->
 
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="speaker">
-
+                    <h4>Keynote Speaker</h4>
                         <figure>
-                            <img alt="" class="img-responsive center-block img-rounded" src="{% static 'website/bootstrap-css/assets/images/speakers/ajith.jpg' %}" style="max-width: 70%;height: 253px;">
+                            <img alt="" class="img-responsive center-block img-rounded" src="{% static 'website/bootstrap-css/assets/images/speakers/rey.jpg' %}" style="max-width: 70%;height: 253px;">
                         </figure>
 
-                        <h4>Dr. Ajith Kumar</h4>
+                        <h4>Prof. Serge Rey</h4>
 
-                        <p>(RF & Electronics Lab, IUAC)</p>
+                        <p>School of Public Policy, University of California</p>
 
                         <ul class="social-block">
-                            <li><a href=""><i class="ion-social-twitter"></i></a></li>
-                            <li><a href=""><i class="ion-social-facebook"></i></a></li>
-                            <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
-                            <li><a href=""><i class="ion-social-googleplus"></i></a></li>
+                            <li><a href="https://twitter.com/sergerey" target="_blank"><i class="ion-social-twitter"></i></a></li>
+                            <!-- <li><a href=""><i class="ion-social-facebook"></i></a></li> -->
+                            <li><a href="https://www.linkedin.com/in/serge-rey-94748876/" target="_blank"><i class="ion-social-linkedin-outline"></i></a></li>
+                            <li><a href="https://github.com/sjsrey" target="_blank"><i class="ion-social-github"></i></a></li>
                         </ul>
 
                     </div><!-- /.speaker -->
                 </div><!-- /.col-md-4 -->
 
-                <div class="col-md-4">
+                <!--<div class="col-md-4">
                     <div class="speaker">
 
                         <figure>
@@ -153,9 +153,27 @@
                             <li><a href=""><i class="ion-social-googleplus"></i></a></li>
                         </ul>
 
-                    </div><!-- /.speaker -->
-                </div><!-- /.col-md-4 -->
+                    </div>
+                </div> --><!-- /.col-md-4 -->
             </div><!-- /.row -->
+        </div>
+    </section>
+
+    <section id="important_dates" class="section important_dates">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Important dates</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Call for Papers opens on: 24/09/2018</h4>
+                </div>
+                <div class="col-md-6">
+                    <h4>Call for Papers closes on: 16/11/2018</h4>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -166,8 +184,8 @@
                     <h3 class="text-uppercase mt0 font-400">Submit a Paper/Workshop</h3>
                     
                     <p>We invite you to submit proposals for talks or workshops to be presented at SciPy 2018. The time duration for talks is 15 or 30 minutes and for workshops is 2 to 4 hours. There will be two parallel tracks for the workshops this year. One track is meant for beginners and the other is for advanced users. </p>
-
-                    <a class="btn btn-white" href="#">Submit</a>
+                    <a data-toggle="modal" data-target="#announce_cfp" class="btn btn-white">
+                    Submit</a>
                 </div>
             </div>
         </div>
@@ -255,7 +273,7 @@
                 <div class="col-sm-3">
                     <h3 class="section-title">Venue</h3>
                     <address>
-                        <p>LH101, 1st Floor,<br> Lecture Hall Complex, IIT Bombay<br> Phone: +1234567890<br> Email: scipy[at]fossee[dot]in </p>
+                        <p>Lecture Hall Complex<br> IIT Bombay</p>
                     </address>
                 </div>
                 <div class="col-sm-9">
@@ -306,7 +324,7 @@
             </div>
     </section>
 
-    <section id="faq" class="section faq">
+<!--    <section id="faq" class="section faq">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -382,13 +400,13 @@
                     </div>
                 </div>
             </div>
-    </section>
+    </section>-->
 
     <section id="photos" class="section photos">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title">Memories of SciPy 2017</h3>
+                    <h3 class="section-title">Memories of <span style="text-transform: none;">SciPy India</span></h3>
                 </div>
             </div>
 
@@ -396,10 +414,10 @@
                 <div class="row memories">
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-1.jpg' %}"
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-10.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-1.jpg' %}"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-10.jpg' %}" style="width: 250px; height: 180px"
                                  alt="Scipy 2017">
                         </a>
                     </div>
@@ -408,7 +426,7 @@
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-4.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-4.jpg' %}"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-4.jpg' %}" style="width: 250px; height: 180px" 
                                  alt="Scipy 2017">
                         </a>
                     </div>
@@ -417,7 +435,7 @@
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-2.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-2.jpg' %}"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-2.jpg' %}" style="width: 250px; height: 180px" 
                                  alt="Scipy 2017">
                         </a>
                     </div>
@@ -427,29 +445,34 @@
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-3.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-3.jpg' %}"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-3.jpg' %}" style="width: 250px; height: 180px"
                                  alt="Scipy 2017">
                         </a>
                     </div>
-                    
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-1.jpg' %}"
+                           data-target="#image-gallery">
+                            <img class="img-thumbnail"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-1.jpg' %}" style="width: 250px; height: 180px"
+                                 alt="Scipy 2017">
+                        </a>
+                    </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-5.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-5.jpg' %}"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-5.jpg' %}" style="width: 250px; height: 180px"
                                  alt="Scipy 2017">
                         </a>
                     </div>
-
-
-
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                         <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-6.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-6.jpg' %}"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-6.jpg' %}" style="width: 250px; height: 180px"
                                  alt="Scipy 2017">
                         </a>
                     </div>
@@ -458,7 +481,7 @@
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-7.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-7.jpg' %}"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-7.jpg' %}" style="width: 250px; height: 180px"
                                  alt="Scipy 2017">
                         </a>
                     </div>
@@ -467,8 +490,8 @@
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-8.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-8.jpg' %}"
-                                 alt="Scipy 2017">
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-8.jpg' %}" style="width: 250px; height: 180px"
+                                 alt="Scipy 2017"> 
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-4 col-xs-6 thumb">
@@ -476,28 +499,10 @@
                            data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-9.jpg' %}"
                            data-target="#image-gallery">
                             <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-9.jpg' %}"
+                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-9.jpg' %}" style="width: 250px; height: 180px"
                                  alt="Scipy 2017">
                         </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-10.jpg' %}"
-                           data-target="#image-gallery">
-                            <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-10.jpg' %}"
-                                 alt="Scipy 2017">
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
-                           data-image="{% static 'website/bootstrap-css/assets/images/photos/photos-11.jpg' %}"
-                           data-target="#image-gallery">
-                            <img class="img-thumbnail"
-                                 src="{% static 'website/bootstrap-css/assets/images/photos/photos-11.jpg' %}"
-                                 alt="Scipy 2017">
-                        </a>
-                    </div>
+                    </div>                   
                 </div>
 
 
@@ -527,13 +532,11 @@
         </div>
     </section>
 
-    <section id="team" class="section team">
+<!--    <section id="team" class="section team">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="text-uppercase mt0 font-400">Our Team</h3>
-                    <!-- <div class="row">
-                    </div> -->
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="card">
@@ -742,9 +745,9 @@
                     </div>
                 </div>
             </div>
-    </section>
+    </section> -->  
 
-    <section id="write-us" class="section write-us">
+<!--    <section id="write-us" class="section write-us">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -783,7 +786,7 @@
                 </div>
             </form>
         </div>
-    </section>
+    </section> -->
 
     <section id="contact-us" class="section contact-us">
         <div class="container">
@@ -806,7 +809,7 @@
                             </dd>
                         </dl>
                 </div>
-                <div class="col-md-8">
+                <!-- <div class="col-md-8">
                 <!-- <div class="row">
                     <div class="col-md-3 text-center">
                         <a href="https://fossee.in/" target="_blank"><img src="{% static 'website/bootstrap-css/assets/images/fossee_logo.png' %}" style="width:50%" class="text-center"></a><strong><p class="text-center">Fossee</p></strong>
@@ -822,7 +825,7 @@
     <strong><p class="text-center">IIT Bombay</p></strong>
                     </div>
                 </div> -->
-                 <div class="table-responsive">
+                 <!-- <div class="table-responsive">
                     <table class="table">
                          <tr>
                             <td style="vertical-align:bottom;border-top:none;!important">
@@ -830,11 +833,11 @@
                         <a href="https://fossee.in/" target="_blank"><img src="{% static 'website/bootstrap-css/assets/images/fossee_logo.png' %}" style="width:60%" class="text-center"></a>
                     </div>
                             </td>
-                            <td style="vertical-align:bottom;border-top:none;!important">
+                            <!-- <td style="vertical-align:bottom;border-top:none;!important">
                             <div class="text-center align-baseline">
                         <a href="https://yaksh.fossee.in" target="_blank"><img src="{% static 'website/bootstrap-css/assets/images/yaksh_banner.png' %}" style="background:black;padding: 5%;" class="text-center" ></a>
                     </div>
-                            </td>
+                            </td> 
                             <td style="vertical-align:bottom;border-top:none;!important">
                             <div class="text-center align-baseline">
                         <a href="https://python-workshops.fossee.in" target="_blank"><img src="{% static 'website/bootstrap-css/assets/images/pylogo.png' %}" style="width:30%;" class="text-center" ></a>
@@ -847,12 +850,12 @@
                          </tr>
                          <tr>
                             <td style="vertical-align:top;border-top:none;!important"><strong><p class="text-center">FOSSEE</p></strong></td>
-                            <td style="vertical-align:top;border-top:none;!important"><strong><p class="text-center">YAKSH - Online Test Platform</p></strong></td>
+                            <td style="vertical-align:top;border-top:none;!important"><strong><p class="text-center">YAKSH - Online Test Platform</p></strong></td> 
                             <td style="vertical-align:top;border-top:none;!important"><strong><p class="text-center">Python Workshop</p></strong></td>
                             <td style="vertical-align:top;border-top:none;!important"><strong><p class="text-center">IIT Bombay</p></strong></td>
                          </tr>
                     </table>
-                </div> 
+                </div> -->
                 </div>
             </div>
     </section>
@@ -873,4 +876,20 @@
 <img class="src-image"  src="{% static 'website/bootstrap-css/assets/images/speakers/dummy.png' %}"/>
 <img class="src-image"  src="{% static 'website/bootstrap-css/assets/images/speakers/dummy.png' %}"/>
 <img class="src-image"  src="{% static 'website/bootstrap-css/assets/images/speakers/dummy.png' %}"/>
+
+<div class="modal fade" id="announce_cfp" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <p class="text-justify">Call for Papers opens on : 24/09/2018</p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
