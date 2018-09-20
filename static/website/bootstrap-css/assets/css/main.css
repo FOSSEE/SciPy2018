@@ -412,7 +412,7 @@ ul li {
 .speaker {
   text-align: center;
   color: #313131;
-  text-transform: uppercase;
+  text-transform: none;
   margin: 25px 0;
 }
 .speaker h4 {
@@ -466,30 +466,22 @@ ul li {
 }
 .sponsor .sponsor-box {
   display: block;
-  opacity: 0.3;
   height: 150px;
   width: 150px;
   margin: 25px auto;
   -webkit-transition: 0.5s all linear;
           transition: 0.5s all linear;
-}
-.sponsor .sponsor-box:hover {
-  opacity: 1;
 }
 .sponsor .sponsor-box-1 {
   background: url(../images/partner/mhrd.png) no-repeat center center/contain;
 }
 .organiser .organiser-box {
   display: block;
-  opacity: 0.3;
   height: 150px;
   width: 150px;
   margin: 25px auto;
   -webkit-transition: 0.5s all linear;
           transition: 0.5s all linear;
-}
-.organiser .organiser-box:hover {
-  opacity: 1;
 }
 .organiser .organiser-box-1 {
   background: url(../images/partner/fossee.png) no-repeat center center/contain;
