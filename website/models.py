@@ -5,6 +5,7 @@ from social.apps.django_app.default.models import UserSocialAuth
 from Scipy2018 import settings
 from django.core.validators import RegexValidator
 import os
+from datetime import datetime
 
 position_choices = (
     ("student", "Student"),
@@ -12,7 +13,14 @@ position_choices = (
     ("industry_people", "Industry People"),
 )
 
+gender = (
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('Other', 'Other'),
+)
+
 source = (
+    ("Poster", "Poster"),
     ("FOSSEE website", "FOSSEE website"),
     ("Google", "Google"),
     ("Social Media", "Social Media"),
@@ -24,6 +32,45 @@ title = (
     ("Miss", "Ms."),
     ("Professor", "Prof."),
     ("Doctor", "Dr."),
+)
+
+attending_job_fair = (
+    ("Yes", 1),
+    ("No", 0),
+)
+
+req_accomodation = (
+    ("Yes", 1),
+    ("No", 0),
+)
+
+t_shirt_size = (
+    ("M", "M"),
+    ("L", "L"),
+    ("XL", "XL"),
+    ("XXL", "XXL"),
+)
+
+attendee_type_choices = (
+    ("Student-750", "Student (Rs 750)"),
+    ("Faculty-1000", "Faculty (Rs 1,000)"),
+    ("Industry participant-2000", "Industry participant (Rs 2,000)"),
+)
+
+ticket_type = (
+
+    ("Regular registration", "Regular registration"),
+    ("Late registration", "Late registration")
+
+)
+
+want_tshirt = (
+    ("No", "No"),
+    ("Yes", "Yes"),
+)
+
+reg_purpose = (
+    ("scipy-2018", 1),
 )
 
 
@@ -100,3 +147,58 @@ class Profile(models.Model):
             self.user.last_name,
             self.user.email
         )
+
+# payment details
+
+
+class PaymentDetails(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default='null')
+    # "regular/late registration"
+    ticket_type = models.CharField(
+        max_length=32, blank=True, choices=attendee_type_choices)
+    attendee_type = models.CharField(
+        max_length=32, blank=True, choices=attendee_type_choices)
+    ticket_price = models.CharField(max_length=20, default=0)
+    first_name = models.CharField(max_length=50, default="null")
+    last_name = models.CharField(max_length=50, default="null")
+    email = models.CharField(max_length=100, default="null")
+    gender = models.CharField(max_length=32, blank=True, choices=gender)
+    phone_number = models.CharField(max_length=10, default="0000000000")
+    full_address = models.CharField(max_length=500, null=True)
+    city = models.CharField(max_length=50, blank=True)
+    state = models.CharField(max_length=20, blank=True)
+    pincode = models.CharField(max_length=6, blank=True)
+    institute = models.CharField(max_length=150, default="null")
+    gstin = models.CharField(max_length=15, null=True)
+    jobfair = models.CharField(
+        max_length=32, blank=True, choices=attending_job_fair, default="No") 
+    req_tshirt = models.CharField(
+        max_length=32, blank=True, choices=want_tshirt, default="No")
+    tshirt_size = models.CharField(
+        max_length=32, blank=True, choices=t_shirt_size, default="None")
+    tshirt_price = models.CharField(max_length=20, default=0)
+    accomodation = models.CharField(
+        max_length=32, blank=True, choices=req_accomodation, default="No")
+    amount = models.CharField(max_length=20, default=0)
+    purpose = models.CharField(max_length=32, blank=True, choices=reg_purpose, default = "null")
+    status = models.PositiveIntegerField(blank=True,default = 0)
+    confirm = models.CharField(max_length=1, null=False, default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+
+
+class PaymentTransactionDetails(models.Model):
+    paymentdetail = models.ForeignKey(
+        PaymentDetails, blank=False, null=False, on_delete=models.PROTECT)
+    requestType = models.CharField(max_length=2)
+    userId = models.ForeignKey(
+        User, blank=False, null=False, on_delete=models.PROTECT)
+    amount = models.CharField(max_length=20)
+    reqId = models.CharField(max_length=50)
+    transId = models.CharField(max_length=100)
+    refNo = models.CharField(max_length=50)
+    provId = models.CharField(max_length=50)
+    status = models.CharField(max_length=2)
+    msg = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)

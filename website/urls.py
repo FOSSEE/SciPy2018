@@ -42,3 +42,4 @@ urlpatterns = [
     re_path(r'^process-contact-form/(?P<next_url>\d+)',
             views.contact_us, name='contact_us'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
