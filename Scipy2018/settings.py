@@ -132,6 +132,9 @@ STATICFILES_DIRS = [
     '/../static/',
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = "/downloads/"
+
 
 # Email Connection Settings
 EMAIL_HOST = EMAIL_HOST

@@ -1,8 +1,8 @@
 # Create your views here.
 
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
+from django.shortcuts import render_to_response, render, redirect
 from django.template import loader
 from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm
@@ -46,40 +46,6 @@ def index(request):
 #    context = {}
 #    template = loader.get_template('proposal.html')
 #    return HttpResponse(template.render(context, request))
-
-
-@csrf_protect
-def proposal(request):
-    if request.method == "POST":
-        context = {}
-        username = request.POST.get('username', None)
-        password = request.POST.get('password', None)
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            if 'next' in request.GET:
-                next = request.GET.get('next', None)
-                return HttpResponseRedirect(next)
-            proposals = Proposal.objects.filter(user=request.user).count()
-            context['user'] = user
-            context['proposals'] = proposals
-            template = loader.get_template('proposal.html')
-            return HttpResponse(template.render(context, request))
-        else:
-            context['invalid'] = True
-            context['form'] = UserLoginForm
-            context['user'] = user
-            template = loader.get_template('proposal.html')
-            return HttpResponse(template.render(context, request))
-    else:
-        form = UserLoginForm()
-        context = {'request': request,
-                   'user': request.user,
-                   'form': form,
-                   }
-        template = loader.get_template('proposal.html')
-        return HttpResponse(template.render(context, request))
-
 
 # User Register
 @csrf_protect
@@ -163,34 +129,38 @@ def view_abstracts(request):
 
 @requires_csrf_token
 def cfp(request):
-    if request.method == "POST":
-        context = {}
-        username = request.POST.get('username', None)
-        password = request.POST.get('password', None)
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            if 'next' in request.GET:
-                next = request.GET.get('next', None)
-                return HttpResponseRedirect(next)
-            proposals = Proposal.objects.filter(user=request.user).count()
-            context['user'] = user
-            context['proposals'] = proposals
+    user = request.user
+    if request.user.is_authenticated:
+        return render(request, 'cfp.html')
+    else:
+        if request.method == "POST":
+            context = {}
+            username = request.POST.get('username', None)
+            password = request.POST.get('password', None)
+            user = authenticate(username=username, password=password)
+            #proposals_a = Proposal.objects.filter(
+            #    user=request.user, proposal_type='ABSTRACT').count()
+            if user is not None:
+                login(request, user)
+                proposals = Proposal.objects.filter(user=request.user).count()
+                context['user'] = user
+                return redirect('/2018/cfp')
+                #template = loader.get_template('index.html')
+                #return render(request, 'index.html', context)
+            else:
+                context['invalid'] = True
+                context['form'] = UserLoginForm
+                context['user'] = user
+                #context['proposals_a'] = proposals_a
+                return render(request, 'cfp.html', context)
+        else:
+            form = UserLoginForm()
+            context = {'request': request,
+                       'user': request.user,
+                       'form': form,
+                       }
             template = loader.get_template('cfp.html')
             return HttpResponse(template.render(context, request))
-        else:
-            context['invalid'] = True
-            context['form'] = UserLoginForm
-            context['user'] = user
-            return render(request, 'cfp.html', context)
-    else:
-        form = UserLoginForm()
-        context = {'request': request,
-                   'user': request.user,
-                   'form': form,
-                   }
-        template = loader.get_template('cfp.html')
-        return HttpResponse(template.render(context, request))
 
 
 @csrf_protect
@@ -214,18 +184,20 @@ def submitcfp(request):
                 context['proposal_submit'] = True
                 sender_name = "SciPy India 2018"
                 sender_email = TO_EMAIL
-                subject = "SciPy India 2018 – Talk Proposal Submission Acknowledgment"
+                subject = "SciPy India 2018 – Paper Submission Acknowledgement "
                 to = (social_user.email, TO_EMAIL)
                 message = """
                 Dear {0}, <br><br>
-                Thank you for showing interest & submitting a talk proposal at SciPy India 2018 conference for the talk titled <b>“{1}”</b>. Reviewal of the proposals will start once the CFP closes.
-                <br><br>You will be notified regarding comments/selection/rejection of your talk via email.
-                Visit this {2} link to view status of your submission.
-                <br>Thank You ! <br><br>Regards,<br>SciPy India 2018,<br>FOSSEE - IIT Bombay.
+                Thank you for showing interest & submitting a paper proposal at SciPy India 2018 
+                for the paper titled {1}. Reviewal of the proposals will start 
+                once the CFP closes.
+                You will be notified regarding comments/selection/rejection of your paper via email. 
+                Visit this {2} link to view the status of your submission.
+                <br>Thank You. <br><br>Regards,<br>SciPy India 2018,<br>FOSSEE - IIT Bombay.
                 """.format(
                     social_user.first_name,
                     request.POST.get('title', None),
-                    'http://scipy.in/2018/view-abstracts/',)
+                    'https://scipy.in/2018/view-abstracts/',)
                 email = EmailMultiAlternatives(
                     subject, '',
                     sender_email, to,
@@ -280,7 +252,7 @@ def submitcfw(request):
                 """.format(
                     social_user.first_name,
                     request.POST.get('title', None),
-                    'http://scipy.in/2018/view-abstracts/',)
+                    'https://scipy.in/2018/view-abstracts/',)
                 email = EmailMultiAlternatives(
                     subject, '',
                     sender_email, to,
@@ -467,7 +439,7 @@ def comment_abstract(request, proposal_id=None):
                             """.format(
                             proposal.user.first_name,
                             proposal.title,
-                            'http://scipy.in/2018/abstract-details/' +
+                            'https://scipy.in/2018/abstract-details/' +
                             str(proposal.id),
                         )
                     elif proposal.proposal_type == 'WORKSHOP':
@@ -945,7 +917,7 @@ def user_register(request):
                 key=key
             )
 
-            return render(request, 'activation.html')
+            return redirect('/2018/cfp')
         else:
             if request.user.is_authenticated:
                 return redirect('/view_profile/')
@@ -955,9 +927,9 @@ def user_register(request):
             )
     else:
         if request.user.is_authenticated and is_email_checked(request.user):
-            return redirect('/my_workshops/')
+            return redirect('/2018/view-abstracts/')
         elif request.user.is_authenticated:
-            return render(request, 'activation.html')
+            return redirect('/2018/cfp')
         form = UserRegistrationForm()
     return render(request, "user-register.html", {"form": form})
 # required for ticket booking
