@@ -33,11 +33,9 @@ MY_CHOICES = (
 ws_duration = (
     ('2', '2'),
     ('3', '3'),
-    ('4', '4'),
 )
 abs_duration = (
     ('15', '15'),
-    ('30', '30'),
 )
 
 
@@ -122,11 +120,18 @@ states = (
 
 # modal proposal form for cfp
 class ProposalForm(forms.ModelForm):
-
-    about_me = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'About Me'}),
+    name_of_author1 = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the name of first author'}),
+                            required=True,
+                            error_messages={
+                                'required': 'Name of author1 field required.'},
+                            )
+    name_of_author2 = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the name of second author(if any)'}),
+                            required=False,
+                            )
+    about_the_authors = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'About Me'}),
                                required=True,
                                error_messages={
-                                   'required': 'About me field required.'},
+                                   'required': 'About the author(s) field required.'},
                                )
     attachment = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),
                                  label='Please upload relevant documents (if any)',
@@ -148,14 +153,15 @@ class ProposalForm(forms.ModelForm):
     proposal_type = forms.CharField(
         widget=forms.HiddenInput(), label='', initial='ABSTRACT', required=False)
 
-    duration = forms.ChoiceField(
-        choices=abs_duration, label='Duration (Mins.)')
+    duration = forms.ChoiceField(widget=forms.Select(attrs={'readonly': True}), choices=abs_duration, required=True)
 
     tags = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tags'}),
                            required=False,
                            )
     open_to_share = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(), required=True,
                                       label='I am agree to publish my content',)
+    terms_and_conditions = forms.BooleanField(widget=forms.CheckboxInput(), 
+        required=True, label='I agree to the terms and conditions')
 
     class Meta:
         model = Proposal
@@ -178,10 +184,18 @@ class ProposalForm(forms.ModelForm):
 
 # modal workshop form for cfw
 class WorkshopForm(forms.ModelForm):
-    about_me = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'About Me'}),
+    name_of_author1 = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the name of first author'}),
+                            required=True,
+                            error_messages={
+                                'required': 'Name of author1 field required.'},
+                            )
+    name_of_author2 = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the name of second author(if any)'}),
+                            required=False,
+                            )
+    about_the_authors = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'About Me'}),
                                required=True,
                                error_messages={
-                                   'required': 'About Me field required.'},
+                                   'required': 'About the author(s) field required.'},
                                )
     attachment = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}),
                                  label='Please upload relevant documents (if any)',
@@ -193,7 +207,7 @@ class WorkshopForm(forms.ModelForm):
                             error_messages={
                                 'required': 'Title field required.'},
                             )
-    abstract = forms.CharField(min_length=300, widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Desciption', 'onkeyup': 'countChar(this)'}),
+    abstract = forms.CharField(min_length=300, widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description', 'onkeyup': 'countChar(this)'}),
                                required=True,
                                label='Description (Min. 300 char.)',)
 
@@ -209,6 +223,8 @@ class WorkshopForm(forms.ModelForm):
     tags = forms.ChoiceField(choices=MY_CHOICES, label='Level')
     open_to_share = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(), required=True,
                                       label='I am agree to publish my content',)
+    terms_and_conditions = forms.BooleanField(widget=forms.CheckboxInput(), 
+        required=True, label='I agree to the terms and conditions')
 
     class Meta:
         model = Proposal
@@ -299,7 +315,7 @@ class UserRegistrationForm(forms.Form):
     email = forms.EmailField(widget=forms.TextInput(
         attrs={'placeholder': 'Enter valid email id'}))
     password = forms.CharField(max_length=32, widget=forms.PasswordInput())
-    confirm_password = forms.CharField(max_length=32, widget=forms.TextInput())
+    confirm_password = forms.CharField(max_length=32, widget=forms.PasswordInput())
     title = forms.ChoiceField(choices=title)
     first_name = forms.CharField(max_length=32, label='First name', widget=forms.TextInput(
         attrs={'placeholder': 'Enter first name'}))
@@ -309,8 +325,8 @@ class UserRegistrationForm(forms.Form):
                                     error_messages={'invalid': "Phone number must be entered \
                                                   in the format: '9999999999'.\
                                                  Up to 10 digits allowed."}, label='Phone/Mobile', widget=forms.TextInput(attrs={'placeholder': 'Enter valid contact number'},))
-    institute = forms.CharField(max_length=128,
-                                help_text='Please write full name of your Institute/Organization/Company', label='Institute/Organization/Company', widget=forms.TextInput(attrs={'placeholder': 'Enter name of your Institute/Organization/Company', 'size': '50'},))
+    institute = forms.CharField(max_length=32, 
+        label='Institute/Organization/Company', widget=forms.TextInput())
     # department = forms.ChoiceField(help_text='Department you work/study',
     #             choices=department_choices)
     #location = forms.CharField(max_length=255, help_text="Place/City")

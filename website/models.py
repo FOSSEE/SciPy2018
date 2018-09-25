@@ -36,7 +36,9 @@ def get_document_dir(instance, filename):
 
 class Proposal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,)
-    about_me = models.TextField(max_length=500)
+    name_of_author1 = models.CharField(max_length=200, default='None')
+    name_of_author2 = models.CharField(max_length=200, default='None')   
+    about_the_authors = models.TextField(max_length=500)
     email = models.CharField(max_length=128)
     phone = models.CharField(max_length=20)
     title = models.CharField(max_length=250)
@@ -50,6 +52,7 @@ class Proposal(models.Model):
     proposal_type = models.CharField(max_length=100)
     tags = models.CharField(max_length=250)
     open_to_share = models.CharField(max_length=2, default=1)
+    terms_and_conditions = models.BooleanField(default= 'True')
 
 
 class Ratings(models.Model):

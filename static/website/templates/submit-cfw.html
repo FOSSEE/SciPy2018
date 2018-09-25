@@ -11,11 +11,6 @@
             </center>
         </p>
         <hr>
-            {% if proposals_w >= 1 %} You have exceeded the workshop proposal submission limit. 
-            You may view your submitted proposals by clicking 
-            
-            <a href="{% url 'website:view_abstracts' %}" class="btn "> here</a>
-            {% else %}
             <h2>
                 <u>Proposal Guidelines</u>
             </h2>
@@ -41,10 +36,21 @@
             </ul>
             <form action="" method=POST>
                 <div class="form-group">
-                    <label for="about_me">About me
+                        <label for="name_of_authors">Name of the author1
+                            <span style="color:red;">*</span>:
+                        </label>
+                 {% render_field proposal_form.name_of_author1 %}
+                    </div>
+                    <div class="form-group">
+                        <label for="name_of_authors">Name of the author2
+                        </label>
+                 {% render_field proposal_form.name_of_author2 %}
+                    </div>
+                <div class="form-group">
+                    <label for="about_me">About the author(s)
                         <span style="color:red;">*</span>:
                     </label>
-                 {% render_field proposal_form.about_me %}
+                 {% render_field proposal_form.about_the_authors %}
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone
@@ -59,7 +65,7 @@
                  {% render_field proposal_form.title %}
                 </div>
                 <div class="form-group">
-                    <label for="dispositiont">Disposition (Min. 300 char.)
+                    <label for="description">Description (Min. 300 char.)
                         <span style="color:red;">*</span>:
                     </label>
                  {% render_field proposal_form.abstract %}
@@ -68,7 +74,7 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <label for="duration">Duration (Mins.)
+                    <label for="duration">Duration (Hrs.)
                         <span style="color:red;">*</span>:
                     </label>
                  {% render_field proposal_form.duration %}
@@ -89,14 +95,22 @@
                             {% render_field proposal_form.open_to_share %}
                     </div>
                 </div>
+                <div class="form-inline">
+                        <div class="checkbox">
+                            <label for="terms_and_conditions">I agree to the terms and conditions
+                                <span style="color:red;">*</span>:
+                            </label>
+                            {% render_field proposal_form.terms_and_conditions %}
+                        </div>
+                    </div>
               {% render_field proposal_form.proposal_type %}
               {% csrf_token %}
                 <center>
                     <button id="subbtn" class="btn btn-info" type="submit" >Submit</button>
-                    <a href="{% url 'website:view_abstracts' %}" class="btn btn-info" role="button">Back</a>
+                    <a href="{% url 'website:cfp' %}" class="btn btn-info" role="button">Back</a>
                 </center>
             </form>
-        {% endif %}
         </div>
+        
     </section>
 {% endblock %}
