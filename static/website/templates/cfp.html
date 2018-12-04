@@ -46,7 +46,7 @@
                 <ul>
                     <li>Call for proposals opens: <b> 25<sup>th</sup> Sept. 2018</b>
                     </li>
-                    <li>Last date for submission of proposals: <b>30<sup>th</sup> Nov. 2018</b>
+                    <li>Last date for submission of proposals: <b>03<sup>rd</sup> Dec. 2018</b>
                     </li>
                     <!-- <li>Announcement of selected proposals: <b>15<sup>th</sup> Nov. 2018</b>
                     </li> -->
@@ -55,14 +55,14 @@
          {% if user.is_superuser %}
                 <center>
                     <a href="{% url 'website:view_abstracts' %}" class="btn btn-info">View Proposals</a>
-                    <a href="{% url 'website:submitcfp' %}" class ="btn btn-info" role="button"> Submit paper  </a>
-                    <a href="{% url 'website:submitcfw' %}" class ="btn btn-info" role="button">Submit workshop </a>
+                    <!-- <a href="{% url 'website:submitcfp' %}" class ="btn btn-info" role="button"> Submit paper  </a>
+                    <a href="{% url 'website:submitcfw' %}" class ="btn btn-info" role="button">Submit workshop </a> -->
                 </center>
          {% else %}
                 <center>
                     <a href="{% url 'website:view_abstracts' %}" class="btn btn-info">View Proposals</a>
-                    <a href="{% url 'website:submitcfp' %}" class ="btn btn-info" role="button"> Submit paper  </a>
-                    <a href="{% url 'website:submitcfw' %}" class ="btn btn-info" role="button">Submit workshop </a>
+                    <!-- <a href="{% url 'website:submitcfp' %}" class ="btn btn-info" role="button"> Submit paper  </a>
+                    <a href="{% url 'website:submitcfw' %}" class ="btn btn-info" role="button">Submit workshop </a> -->
                 </center>
          {% endif %}
          {% else %}
