@@ -10,10 +10,10 @@
         </p>
             {% if not proposals %}
         <center>
-            <h3>You have not yet submitted any proposal</h3>
-            <a href="{% url 'website:submitcfp' %}" class ="btn btn-info" role="button"> Submit paper  </a>
-            <a href="{% url 'website:submitcfw' %}" class ="btn btn-info" role="button">Submit workshop </a><br><br>
-            <a href="{% url 'website:cfp' %}" class="btn btn-info" role="button">Back</a>
+            <h3>You have not submitted any proposal</h3>
+            <!-- <a href="{% url 'website:submitcfp' %}" class ="btn btn-info" role="button"> Submit paper  </a>
+             <a href="{% url 'website:submitcfw' %}" class ="btn btn-info" role="button">Submit workshop </a><br><br>
+            <a href="{% url 'website:cfp' %}" class="btn btn-info" role="button">Back</a> -->
         </center>
             {% else %}
             {% if user.is_superuser  %}
@@ -24,7 +24,7 @@
             {% endif %}
             <form action="{% url 'website:status_change' %}" method="post" onsubmit="return confirm('Are You Sure?');">
                 {% csrf_token %}
-                <p>
+               
                     <div class="table-responsive">
                         <table id ="myTable" width="100%" cellpadding="10" class="table table-striped table-bordered table-hover tablesorter">
                             <colgroup>
@@ -119,12 +119,12 @@
                         {% endfor %}
                                                     </table>
                                                 </div>
-                                                <br>
+                                                <br><!-- 
                                                     <div>
                                                         <a href="{% url 'website:submitcfp' %}" class ="btn btn-info" role="button"> Submit paper  </a>
                                                         <a href="{% url 'website:submitcfw' %}" class ="btn btn-info" role="button">Submit workshop </a>
-                                                    </div>
-                                                </p>
+                                                    </div> -->
+                                                
                 {% if user.is_superuser  %}
                                                 <!-- <input type="submit" id="delete" class ="btn btn-info" value="Delete" name="delete"/>
                                                 <center>
