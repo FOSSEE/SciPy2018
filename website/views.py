@@ -97,7 +97,7 @@ def view_abstracts(request):
     context = {}
     count_list = []
     if request.user.is_authenticated:
-        if user.is_superuser:
+        if user.is_staff:
             proposals = Proposal.objects.all().order_by('status')
             ratings = Ratings.objects.all()
             context['ratings'] = ratings
@@ -336,7 +336,7 @@ def abstract_details(request, proposal_id=None):
     user = request.user
     context = {}
     if user.is_authenticated:
-        if user.is_superuser:
+        if user.is_staff:
             proposals = Proposal.objects.all()
             context['proposals'] = proposals
             context['user'] = user
@@ -410,7 +410,7 @@ def comment_abstract(request, proposal_id=None):
     user = request.user
     context = {}
     if user.is_authenticated:
-        if user.is_superuser:
+        if user.is_staff:
             try:
                 proposal = Proposal.objects.get(id=proposal_id)
                 try:
@@ -434,7 +434,7 @@ def comment_abstract(request, proposal_id=None):
                             Dear {0}, <br><br>
                             There is a comment posted on your proposal for the talk titled <b>{1}</b>.<br>
                             Once we receive your response, you will be notified regarding further comments/acceptance/ rejection of your talk/workshop via email. 
-                            Visit this link {2} to view comments on your submission.<br><br>
+                            Log in to view the comments on your submission.<br><br>
                             Thank You ! <br><br>Regards,<br>SciPy India 2018,<br>FOSSEE - IIT Bombay.
                             """.format(
                             proposal.user.first_name,
@@ -448,7 +448,7 @@ def comment_abstract(request, proposal_id=None):
                             Dear {0}, <br><br>
                             There is a comment posted on your proposal for the workshop titled <b>{1}</b>.<br>
                             Once we receive your response, you will be notified regarding further comments/acceptance/ rejection of your talk/workshop via email. 
-                            Visit this {2} link to view comments on your submission.<br><br>
+                            Log in to view the comments on your submission.<br><br>
                             Thank You ! <br><br>Regards,<br>SciPy India 2018,<br>FOSSEE - IIT Bombay.
                             """.format(
                             proposal.user.first_name,
@@ -456,13 +456,13 @@ def comment_abstract(request, proposal_id=None):
                             'http://scipy.in/2018/abstract-details/' +
                             str(proposal.id),
                         )
-                    email = EmailMultiAlternatives(
-                        subject, '',
-                        sender_email, to,
-                        headers={"Content-type": "text/html;charset=iso-8859-1"}
-                    )
-                    email.attach_alternative(message, "text/html")
-                    email.send(fail_silently=True)
+                    #email = EmailMultiAlternatives(
+                    #    subject, '',
+                    #    sender_email, to,
+                    #    headers={"Content-type": "text/html;charset=iso-8859-1"}
+                    #)
+                    #email.attach_alternative(message, "text/html")
+                    #email.send(fail_silently=True)
                     proposal.status = "Commented"
                     proposal.save()
                     rates = Ratings.objects.filter(proposal=proposal)
@@ -501,7 +501,7 @@ def status(request, proposal_id=None):
     user = request.user
     context = {}
     if user.is_authenticated:
-        if user.is_superuser:
+        if user.is_staff:
             proposal = Proposal.objects.get(id=proposal_id)
             if 'accept' in request.POST:
                 proposal.status = "Accepted"
@@ -618,7 +618,7 @@ def status_change(request):
     user = request.user
     context = {}
     if user.is_authenticated:
-        if user.is_superuser:
+        if user.is_staff:
             if 'delete' in request.POST:
                 delete_proposal = request.POST.getlist('delete_proposal')
                 for proposal_id in delete_proposal:
@@ -702,9 +702,9 @@ def status_change(request):
                     if proposal.proposal_type == 'ABSTRACT':
                         subject = "SciPy India 2018 - Talk Proposal Accepted"
                         message = """Dear """+proposal.user.first_name+""",
-                        Thank you for your excellent submissions!  This year we received many really good submissions.  Due the number and quality of the talks this year we have decided to give 20 minute slots to all the accepted talks.  So even though you may have submitted a 30 minute one, we are sorry you will only have 20 minutes.  Of these 20 minutes please plan to do a 15 minute talk (we will strive hard to keep to time), and keep 5 minutes for Q&A and transfer.  We will have the next speaker get ready during your Q&A session in order to not waste time.
-                    Pardon the unsolicited advice but it is important that you plan your presentations carefully. 15 minutes is a good amount of time to communicate your central idea. Most really good TED talks finish in 15 minutes.  Keep your talk focussed and please do rehearse your talk and slides to make sure it flows well. If you need help with this, the program chairs can try to help you by giving you some early feedback on your slides.  Just upload your slides before 26th on the same submission interface and we will go over it once.  For anything submitted after 26th we may not have time to comment on but will try to give you feedback.  Please also keep handy a PDF version of your talk in case your own laptops have a problem.
-                    Please confirm your participation.  The schedule will be put up online by end of day.  We look forward to hearing your talk.
+                        Thank you for your excellent submissions!  This year we received many really good submissions.  The time allotted for each presentation is 15 minutes. Of these 15 minutes please plan to do a 10 minute talk (we will strive hard to keep to time), and keep 5 minutes for Q&A and transfer.  We will have the next speaker get ready during your Q&A session in order to not waste time.
+                    Pardon the unsolicited advice but it is important that you plan your presentations carefully. 15 minutes is a good amount of time to communicate your central idea. Most really good TED talks finish in 15 minutes.  Keep your talk focussed and please do rehearse your talk and slides to make sure it flows well. Please also keep handy a PDF version of your talk in case your own laptop has a problem.
+                    Please confirm your participation. The schedule will be put up on the website in two days.  We look forward to hearing your talk.
                     \n\nYou will be notified regarding instructions of your talk via email.\n\nThank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay"""
                     elif proposal.proposal_type == 'WORKSHOP':
                         subject = "SciPy India 2018 - Workshop Proposal Accepted"
@@ -715,6 +715,13 @@ The tentative schedule will be put up on the website shortly. Please confirm you
 
 We strongly suggest that you try to plan your workshops carefully and focus on doing things hands-on and not do excessive amounts of theory. Try to give your participants a decent overview so they can pick up additional details on their own. It helps to pick one or two overarching problems you plan to solve and work your way through the solution of those. 
 \n\nThank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay"""
+                    email = EmailMultiAlternatives(
+                    subject, '',
+                    sender_email, to,
+                    headers={"Content-type": "text/html;charset=iso-8859-1"}
+                )
+                email.attach_alternative(message, "text/html")
+                email.send(fail_silently=True)
                     #send_mail(subject, message, sender_email, to)
                     # context.update(csrf(request))
                 proposals = Proposal.objects.all()
