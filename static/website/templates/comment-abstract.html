@@ -86,8 +86,9 @@
             {% endfor %}
             <form action="{% url 'website:comment_abstract' proposal.id %}" method='POST' enctype="multipart/form-data">
                 {% csrf_token %}
-                <textarea rows="5" cols="100" id="comment" class= "comment" name="comment" placeholder = "Add commnet here..."></textarea><br/>
+                <textarea rows="5" cols="100" id="comment" class= "comment" name="comment" placeholder = "Add comment here..."></textarea><br/>
                 <input class="button special"  type="submit" value="Comment">
+                <a href="{% url 'website:view_abstracts' %}" class="btn btn-primary">Back</a>
             </form>
             <!--     <form action="{% url 'website:status' proposal.id %}" method='POST'>{% csrf_token %}
                 <input type="submit" class="button special" style="background:green" value="Accept" name="accept"/>

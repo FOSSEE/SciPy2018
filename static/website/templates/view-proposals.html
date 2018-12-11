@@ -17,9 +17,9 @@
         </center>
             {% else %}
             {% if user.is_superuser  %}
-        <div style="float:right">
+        <!-- <div style="float:right">
             <input type="submit" id="dump" class ="btn btn-info"  value="Export as csv" name="dump"/>
-        </div>
+        </div> -->
         <br>
             {% endif %}
             <form action="{% url 'website:status_change' %}" method="post" onsubmit="return confirm('Are You Sure?');">
@@ -126,12 +126,12 @@
                                                     </div> -->
                                                 
                 {% if user.is_superuser  %}
-                                                <!-- <input type="submit" id="delete" class ="btn btn-info" value="Delete" name="delete"/>
-                                                <center>
+                                                 <!-- <input type="submit" id="delete" class ="btn btn-info" value="Delete" name="delete"/> -->
+                                                <!-- <center>
                                                     <input type="submit" id="accept" class ="btn btn-info" value="Accept" name="accept"/>
                                                     <input type="submit" id="rejected" class ="btn btn-info"  value="Reject" name="reject"/>
-                                                    <input type="submit" id="resubmit" class ="btn btn-info"  value="Resubmit" name="resubmit"/> -->
-                                                </center>
+                                                    <input type="submit" id="resubmit" class ="btn btn-info"  value="Resubmit" name="resubmit"/> 
+                                                </center> -->
                 {% endif %}
                                             </form>
             {% endif %}
