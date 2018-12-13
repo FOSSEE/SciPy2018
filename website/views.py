@@ -699,7 +699,7 @@ def status_change(request):
 
                     sender_name = "SciPy India 2018"
                     sender_email = TO_EMAIL
-                    to = (proposal.user.email, TO_EMAIL)
+                    to = (proposal.user.email)
                     if proposal.proposal_type == 'ABSTRACT':
                         subject = "SciPy India 2018 - Talk Proposal Accepted"
 
@@ -708,7 +708,7 @@ Thank you for your excellent submission!  Your talk has been accepted! We have a
 
 Please also keep handy a PDF version of your talk in case your own laptop has a problem.
 
-Please confirm your participation via return email on or before 17 December 2018.  We shall be waiving the registration fee for the speakers. Please fill this form ({1}) to give your details. In case you have already registered we shall reimburse the registration charges at the conference venue.The tentative schedule will be put up online by end of the day. 
+Please confirm your participation via an email to scipy@fossee.in on or before 17 December 2018.  We shall be waiving the registration fee for the speakers. Please fill this form ({1}) to give your details. In case you have already registered we shall reimburse the registration charges at the conference venue.The tentative schedule will be put up online by end of the day. 
 
 We look forward to hearing your talk.
 
@@ -722,7 +722,7 @@ Thank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay.
                         message = """Dear {0}, \n
 Thank you for your excellent submission!  We are pleased to accept your workshop. Each workshop is allotted a time slot of 2 hours. Please plan for 1 hour and 55 minutes in order to give the participants a 10 minute break between workshops for tea.
 
-The tentative schedule will be put up on the website shortly. Please confirm your participation by replying to this mail on or before 17 December 2018. We shall be waiving the registration fee for the speakers. Please fill this form ({1}) to give your details. In case you have already registered we shall reimburse the registration charges at the conference venue.
+The tentative schedule will be put up on the website shortly. Please confirm your participation via an email to scipy@fossee.in on or before 17 December 2018. We shall be waiving the registration fee for the speakers. Please fill this form ({1}) to give your details. In case you have already registered we shall reimburse the registration charges at the conference venue.
 
 We also request you to provide detailed instructions for the participants (and the organizers if they need to do something for you). These instructions will be made available on the conference website. Installation is often a problem, so please make sure your instructions are simple and easy to follow.  If you wish, we could allow some time on the previous day for installation help.  Let us know about this.  Also, do not waste too much time on installation during your workshop.
 
@@ -755,7 +755,7 @@ Thank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay.
                     proposal.save()
                     sender_name = "SciPy India 2018"
                     sender_email = TO_EMAIL
-                    to = (proposal.user.email, TO_EMAIL)
+                    to = (proposal.user.email)
                     if proposal.proposal_type == 'ABSTRACT':
                         subject = "SciPy India 2018 - Talk Proposal Rejected"
                         message = """Dear """+proposal.user.first_name+""",
