@@ -593,13 +593,13 @@ def status(request, proposal_id=None):
                         proposal.title,
                         'https://scipy.in/2018/view-abstracts/'
                     )
-                email = EmailMultiAlternatives(
-                    subject, '',
-                    sender_email, to,
-                    headers={"Content-type": "text/html;charset=iso-8859-1"}
-                )
-                email.attach_alternative(message, "text/html")
-                email.send(fail_silently=True)
+                #email = EmailMultiAlternatives(
+                #    subject, '',
+                #    sender_email, to,
+                #    headers={"Content-type": "text/html;charset=iso-8859-1"}
+                #)
+                #email.attach_alternative(message, "text/html")
+                #email.send(fail_silently=True)
                 proposal.status = "Edit"
                 proposal.save()
                 # context.update(csrf(request))
@@ -696,31 +696,49 @@ def status_change(request):
                     proposal = Proposal.objects.get(id=proposal_id)
                     proposal.status = "Accepted"
                     proposal.save()
+
                     sender_name = "SciPy India 2018"
                     sender_email = TO_EMAIL
                     to = (proposal.user.email, TO_EMAIL)
                     if proposal.proposal_type == 'ABSTRACT':
                         subject = "SciPy India 2018 - Talk Proposal Accepted"
-                        message = """Dear """+proposal.user.first_name+""",
-                        Thank you for your excellent submissions!  This year we received many really good submissions.  The time allotted for each presentation is 15 minutes. Of these 15 minutes please plan to do a 10 minute talk (we will strive hard to keep to time), and keep 5 minutes for Q&A and transfer.  We will have the next speaker get ready during your Q&A session in order to not waste time.
-                    Pardon the unsolicited advice but it is important that you plan your presentations carefully. 15 minutes is a good amount of time to communicate your central idea. Most really good TED talks finish in 15 minutes.  Keep your talk focussed and please do rehearse your talk and slides to make sure it flows well. Please also keep handy a PDF version of your talk in case your own laptop has a problem.
-                    Please confirm your participation. The schedule will be put up on the website in two days.  We look forward to hearing your talk.
-                    \n\nYou will be notified regarding instructions of your talk via email.\n\nThank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay"""
+
+                        message = """Dear {0}, \n
+Thank you for your excellent submission!  Your talk has been accepted! We have allotted 20 minutes for each talk.  Of these 20 minutes, please plan to do a 15 minute talk (we will strive hard to keep to time), and keep 5 minutes for Q&A and transfer.  We will have the next speaker get ready during your Q&A session in order to not waste time.
+
+Please also keep handy a PDF version of your talk in case your own laptop has a problem.
+
+Please confirm your participation via return email on or before 17 December 2018.  We shall be waiving the registration fee for the speakers. Please fill this form ({1}) to give your details. In case you have already registered we shall reimburse the registration charges at the conference venue.The tentative schedule will be put up online by end of the day. 
+
+We look forward to hearing your talk.
+
+Thank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay.
+                        """.format(
+                            proposal.user.first_name,
+                            'https://tinyurl.com/scipy18-speakers'
+                        )
                     elif proposal.proposal_type == 'WORKSHOP':
                         subject = "SciPy India 2018 - Workshop Proposal Accepted"
-                        message = """Dear """+proposal.user.first_name+""",
-                        Thank you for your excellent submissions!  We are pleased to accept your workshop. Due to the large number of submissions, we have decided to accept 8 workshops and give all the selected workshops 2 hours each. Please plan for 1 hour and 55 minutes in order to give the participants a 10 minute break between workshops for tea.
+                        message = """Dear {0}, \n
+Thank you for your excellent submission!  We are pleased to accept your workshop. Each workshop is allotted a time slot of 2 hours. Please plan for 1 hour and 55 minutes in order to give the participants a 10 minute break between workshops for tea.
 
-The tentative schedule will be put up on the website shortly. Please confirm your participation and do provide detailed instructions for the participants (and the organizers if they need to do something for you) by replying to this email. These instructions will be made available on the conference website. Installation is often a problem, so please make sure your instructions are simple and easy to follow.  If you wish, we could allow some time on the previous day for installation help.  Let us know about this.  Also, do not waste too much time on installation during your workshop.
+The tentative schedule will be put up on the website shortly. Please confirm your participation by replying to this mail on or before 17 December 2018. We shall be waiving the registration fee for the speakers. Please fill this form ({1}) to give your details. In case you have already registered we shall reimburse the registration charges at the conference venue.
+
+We also request you to provide detailed instructions for the participants (and the organizers if they need to do something for you). These instructions will be made available on the conference website. Installation is often a problem, so please make sure your instructions are simple and easy to follow.  If you wish, we could allow some time on the previous day for installation help.  Let us know about this.  Also, do not waste too much time on installation during your workshop.
 
 We strongly suggest that you try to plan your workshops carefully and focus on doing things hands-on and not do excessive amounts of theory. Try to give your participants a decent overview so they can pick up additional details on their own. It helps to pick one or two overarching problems you plan to solve and work your way through the solution of those. 
-\n\nThank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay"""
+
+Thank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay.
+                        """.format(
+                            proposal.user.first_name,
+                            'https://tinyurl.com/scipy18-speakers'
+                        )
                     email = EmailMultiAlternatives(
-                    subject, '',
+                    subject, message,
                     sender_email, to,
                     headers={"Content-type": "text/html;charset=iso-8859-1"}
                 )
-                email.attach_alternative(message, "text/html")
+                #email.attach_alternative(message, "text/html")
                 email.send(fail_silently=True)
                     #send_mail(subject, message, sender_email, to)
                     # context.update(csrf(request))
@@ -741,9 +759,10 @@ We strongly suggest that you try to plan your workshops carefully and focus on d
                     if proposal.proposal_type == 'ABSTRACT':
                         subject = "SciPy India 2018 - Talk Proposal Rejected"
                         message = """Dear """+proposal.user.first_name+""",
-                        Thank you for your submission to the conference.  Unfortunately, due to the large number of excellent talks that were submitted, your talk was not selected.  We hope you are not discouraged and request you to kindly attend the conference and participate.  We have an excellent line up of workshops (8 in total) and many excellent talks. You may also wish to give a lightning talk (a short 5 minute talk) at the conference if you so desire.
-                        We look forward to your active participation in the conference.
-                        \n\nThank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay"""
+Thank you for your submission to the conference.  Unfortunately, due to a large number of excellent talks that were submitted, your talk was not selected.  We hope you are not discouraged and request you to kindly attend the conference and participate.  We have an excellent line up of workshops (8 in total) and many excellent talks. If you wish to give a lightning talk (a short 5 minute talk) at the conference please let us know on the day of the conference.
+
+We look forward to your active participation in the conference.                  
+Thank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay."""
                         # message = """Dear """+proposal.user.first_name+""",
                    # Your talk was rejected because the contents of your work (your report for example) were entirely plagiarized.  This is unacceptable and this amounts to severe academic malpractice and misconduct. As such we do not encourage this at any level whatsoever.  We strongly suggest that you change your ways.  You should NEVER EVER copy paste any content, no matter where you see it.  Even if you cite the place where you lifted material from, it is not acceptable to copy anything verbatim.  Always write in your own words. Your own personal integrity is much more important than a publication.  When giving a tutorial it is understandable that you may use material that someone else has made if you acknowledge this correctly and with their full knowledge.  However, the expectation is that you have done something yourself too.  In your case a bulk of the work seems plagiarized and even if your talk material is your own, your act of plagiarizing content for your report is unacceptable to us.
 
@@ -753,10 +772,11 @@ We strongly suggest that you try to plan your workshops carefully and focus on d
                     elif proposal.proposal_type == 'WORKSHOP':
                         subject = "SciPy India 2018 - Workshop Proposal Rejected"
                         message = """Dear """+proposal.user.first_name+""",
-                        Thank you for your submission to the conference. 
-                    Unfortunately, due to the large number of excellent workshops submitted, yours was not selected. We hope you are not discouraged and request you to kindly attend the conference and participate. We have an excellent line up of workshops (8 in total) and many excellent talks. You may also wish to give a lightning talk (a short 5 minute talk) at the conference if you so desire. 
-                    We look forward to your active participation in the conference.
-                    \n\nThank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay"""
+Thank you for your submission to the conference.  Unfortunately, due to a large number of excellent workshops submitted, yours was not selected.  We hope you are not discouraged and request you to kindly attend the conference and participate.  We have an excellent line up of workshops (8 in total) and many excellent talks. If you wish to give a lightning talk (a short 5 minute talk) at the conference please let us know on the day of the conference.
+
+We look forward to your active participation in the conference.
+
+Thank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay."""
                         # message = """Dear """+proposal.user.first_name+""",
                    # Thank you for your excellent workshop submission titled “Digital forensics using Python”.  The program committee was really excited about your proposal and thought it was a very good one.  While the tools you use are certainly in the SciPy toolstack the application was not entirely in the domain of the attendees we typically have at SciPy.  This along with the fact that we had many really good workshops that were submitted made it hard to select your proposal this time -- your proposal narrowly missed out.  We strongly suggest that you submit this to other more generic Python conferences like the many PyCon and PyData conferences as it may be a much better fit there.  We also encourage you to try again next year and if we have a larger audience, we may have space for it next year.  This year with two tracks we already have 8 excellent workshops selected.
 
@@ -766,6 +786,13 @@ We strongly suggest that you try to plan your workshops carefully and focus on d
                     # \n\nRegards,\n\nSciPy India Program chairs"""
                     #send_mail(subject, message, sender_email, to)
                     # context.update(csrf(request))
+                    email = EmailMultiAlternatives(
+                    subject, message,
+                    sender_email, to,
+                    headers={"Content-type": "text/html;charset=iso-8859-1"}
+                )
+                #email.attach_alternative(message, "text/html")
+                email.send(fail_silently=True)
                 proposals = Proposal.objects.all()
                 context['proposals'] = proposals
                 context['user'] = user
