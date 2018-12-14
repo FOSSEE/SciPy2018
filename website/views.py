@@ -699,6 +699,8 @@ def status_change(request):
 
                     sender_name = "SciPy India 2018"
                     sender_email = TO_EMAIL
+                    cc_email = CC_EMAIL
+                    bcc_email = BCC_EMAIL
                     to = (proposal.user.email)
                     if proposal.proposal_type == 'ABSTRACT':
                         subject = "SciPy India 2018 - Talk Proposal Accepted"
@@ -735,7 +737,7 @@ Thank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay.
                         )
                     email = EmailMultiAlternatives(
                     subject, message,
-                    sender_email, to,
+                    sender_email, [to], cc=[cc_email], bcc = [bcc_email],
                     headers={"Content-type": "text/html;charset=iso-8859-1"}
                 )
                 #email.attach_alternative(message, "text/html")
@@ -755,6 +757,8 @@ Thank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay.
                     proposal.save()
                     sender_name = "SciPy India 2018"
                     sender_email = TO_EMAIL
+                    cc_email = CC_EMAIL
+                    bcc_email = BCC_EMAIL
                     to = (proposal.user.email)
                     if proposal.proposal_type == 'ABSTRACT':
                         subject = "SciPy India 2018 - Talk Proposal Rejected"
@@ -788,7 +792,7 @@ Thank You ! \n\nRegards,\nSciPy India 2018,\nFOSSEE - IIT Bombay."""
                     # context.update(csrf(request))
                     email = EmailMultiAlternatives(
                     subject, message,
-                    sender_email, to,
+                    sender_email, [to], cc=[cc_email], bcc = [bcc_email],
                     headers={"Content-type": "text/html;charset=iso-8859-1"}
                 )
                 #email.attach_alternative(message, "text/html")
